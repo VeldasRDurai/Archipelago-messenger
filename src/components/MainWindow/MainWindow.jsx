@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components';
 
-import { logedOutAction } from '../../redux/isLoged/isLogedActions';
+import { logedInAction } from '../../redux/isLoged/isLogedActions';
 
 import Loading from '../Loading/Loading';
 
@@ -19,13 +19,30 @@ const MainWindow = () => {
     const dispatch = useDispatch();
     const isLoged = useSelector( state => state.isloged );
 
-    useEffect( () => {
-        setTimeout( () => {
-            setLoading(false);
-            // dispatch( logedInAction() );
-            dispatch( logedOutAction() );
-        }, 1000);
-    } , [dispatch] );
+    useEffect( () => { 
+        const dataFetcher = async () => {
+            try {
+                const res = await fetch( "http://localhost:4000/" , {
+                    credentials: 'include'
+                });
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json'},
+                //     body: JSON.stringify( { purpose : 'isValidUser'} ),
+                // });
+                if( res.status === 200 ){
+                    let data = res.json();
+                    console.log(data);
+                } else {
+                    console.log(res);
+                }
+                setLoading(false);
+                dispatch( logedInAction() );
+            } catch(e) {
+                console.log(e);
+            }
+        }
+        dataFetcher();
+    } , [ dispatch ] );
 
     return(
         <Div>

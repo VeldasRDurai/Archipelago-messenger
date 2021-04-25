@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 // import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
@@ -13,19 +14,32 @@ const Div = styled.div`
 `;
 
 const SignUp = () => {
-
+    
+    const history = useHistory();
     
     const [ email , setEmail ] = useState('');
     const [ name , setName ] = useState('');
     const [ password , setPassword ] = useState('');
     
-    const signUpSubmit = () => {
-        console.log( email , name , password );
+    const signUpSubmit = async () => {
+        try{
+            console.log( email , name , password );
+            const data = await fetch( "http://localhost:4000/sign-up" , {
+                credentials: 'include' , 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify( { email , name , password } ),
+            });
+            console.log('Success:', data);
+            if( data.status === 200 ) {
+                history.push('/');
+            }
+        }
+        catch(error) {
+            console.error('Error:'+ error);
+            console.log(error.data);
+        }
     }
-
-    useEffect( () => {
-        console.log('here');
-    } , [ email ] );
     
     return (
         <Div>
@@ -37,7 +51,8 @@ const SignUp = () => {
             <hr/>
             <div> Already have an account ? </div>
             <input type="button" value="Log In"
-                onClick={ () => window.location.href = "http://localhost:3000/log-in" }/>
+                // onClick={ () => window.location.href = "http://localhost:3000/log-in" }/>
+                onClick={ () => history.push('/log-in') }/>
         </Div>
     );
 }
