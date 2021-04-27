@@ -17,8 +17,10 @@ const Div = styled.div`
 
 const ChatList = ({ userData }) => { 
     // const isLoged = useSelector( state => state.isloged );
-    const [currentSocket, setCurrentSocket] = useState(null);
+    const [ currentSocket, setCurrentSocket ] = useState(null);
     const [ searchResult , setSearchResult ] = useState([]);
+    const [ allChat , setAllChat ] = useState({});
+    // const [ history , setHistory ] = useState([]);
     const [ chatting , setChatting ] = useState({
         isChatting: false ,
         with : undefined
@@ -33,7 +35,20 @@ const ChatList = ({ userData }) => {
         });
         socket.on('searchResult' , data => setSearchResult(data) );
         socket.on('invite', function(data) {
+            console.log( data );
             socket.emit("joinRoom",data)
+        });
+        socket.on('previousMsg' , data => {
+            console.log(data);
+            setAllChat(data);
+        });
+        socket.on('reciveMsg', data => {
+            console.log( data );
+            socket.emit('getHistory', userData );
+        });
+        socket.on('setHistory' , data => {
+            // setHistory(data.history);
+            console.log( data.history );
         });
     } , [ userData ] );
 
@@ -48,7 +63,7 @@ const ChatList = ({ userData }) => {
                         } 
                         <SearchTab socket={ currentSocket } searchResult={searchResult} setChatting={setChatting} />
                     </>:
-                    <Chatting userData={ userData } with={ chatting.with } socket={ currentSocket } />
+                    <Chatting setChatting={setChatting} userData={ userData } with={ chatting.with } socket={ currentSocket } allChat={allChat} />
             }
         </Div>
     );

@@ -15,16 +15,24 @@ const Chatting = (props) => {
 
     useEffect( () => {
         props.socket.emit('createRoom', { userData:props.userData , with:props.with });
-    },[]);
+    },[props.socket , props.userData , props.with]);
 
     const sendMsg = () => {
         props.socket.emit( 'sendMsg' , { userData:props.userData , with:props.with , message:message} );
     }
+    const goBack = () => {
+        // props.socket.emit('leftRoom' ,{ userData:props.userData , with:props.with } );
+        props.setChatting({ isChatting: false , with : undefined });
+    }
     return(
         <Div>
+            <div onClick={ () => goBack() } > back </div>
             Chatting with { props.with }
             <input type="text" onChange={ e => setMessage(e.target.value) } />
             <button onClick={()=>sendMsg()} > send </button>
+            <div>
+                {/* { props.allChat } */}this
+            </div>
         </Div>
     );
 }
