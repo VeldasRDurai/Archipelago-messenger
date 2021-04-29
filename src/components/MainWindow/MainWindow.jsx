@@ -30,7 +30,7 @@ const MainWindow = () => {
             } catch(e) { console.log(e); }
         }
         dataFetcher();
-    } , [ dispatch , history ] );
+    } , [] );
 
     return(
         <>

@@ -12,9 +12,9 @@ const searchReducer = ( state = initialState , action ) => {
                 searchResult : action.searchResult
             };
         case UPDATE_SEARCH_TEXT : 
-            return { ...state ,
-                searchText : action.searchText
-            };
+            return action.searchText === '' ? 
+                { ...state , searchText : '' , searchResult : [] } :
+                { ...state , searchText : action.searchText } ;
         default : 
             return state;
     }

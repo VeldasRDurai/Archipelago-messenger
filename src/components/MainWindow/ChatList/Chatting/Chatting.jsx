@@ -5,6 +5,10 @@ import styled from 'styled-components';
 import { appendNewChat } from '../../../../redux/chatDetails/chatDetailsActions';
 import { endChatAction } from '../../../../redux/chatDetails/chatDetailsActions';
 
+import ChattingHead from './ChattingHead/ChattingHead';
+import ChattingContent from './ChattingContent/ChattingContent';
+import ChattingKeyboard from './ChattingKeyboard/ChattingKeyboard';
+
 const Div = styled.div`
     @media (max-width:425px) {
         height:100vh;
@@ -12,7 +16,9 @@ const Div = styled.div`
         position:absolute;
         top:0;
         left:0;
-        background-color:yellow;
+        /* background-color:yellow; */
+        display:flex;
+        flex-direction:column;
     }
 `;
 
@@ -26,7 +32,7 @@ const Chatting = () => {
 
     useEffect( () => {
         socket.emit('createRoom', { email:email , with:withEmail });
-    },[ socket , email , withEmail ]);
+    },[]);
 
     const sendMsg = () => {
         socket.emit( 'sendMsg' , { email:email , with:withEmail , message:message} );
@@ -38,14 +44,19 @@ const Chatting = () => {
     }
     return(
         <Div>
-            <div onClick={ () => goBack() } > back </div>
-            Chatting with { withEmail }
-            <input type="text" onChange={ e => setMessage(e.target.value) } />
-            <button onClick={()=>sendMsg()} > send </button>
-            <div>
-                this
-                { oldChat.map( item => <div> { item.sendBy + ' :- ' + item.msg} </div> ) }
+            <ChattingHead />
+            <div style={{ display:'none' }} >
+                <div onClick={ () => goBack() } > back </div>
+                Chatting with { withEmail }
+                <input type="text" onChange={ e => setMessage(e.target.value) } />
+                <button onClick={()=>sendMsg()} > send </button>
+                <div>
+                    this
+                    { oldChat.map( item => <div> { item.sendBy + ' :- ' + item.msg} </div> ) }
+                </div>
             </div>
+            <ChattingContent />
+            <ChattingKeyboard />
         </Div>
     );
 }

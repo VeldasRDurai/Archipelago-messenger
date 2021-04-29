@@ -57,7 +57,7 @@ const ChatList = () => {
             console.log( data.history );
             setHistory(data.history);
         });
-    } , [ email , dispatch , withEmail ] );
+    } , [] );
 
     return (
         <Div>

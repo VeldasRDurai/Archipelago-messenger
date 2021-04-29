@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 
 import TabHead from './TabHead/TabHead';
 import TabContent from './TabContent/TabContent';
-
-import { startChatAction } from '../../../../redux/chatDetails/chatDetailsActions' ;
-import { updateSearchTextAction } from '../../../../redux/search/searchActions';
 
 const Key = styled.div`
     @media (max-width:425px) {
@@ -26,6 +23,7 @@ const Key = styled.div`
 `;
 const Tab = styled.div`
     @media (max-width:425px) {
+        overflow:hidden;
         height:100vh;
         width:100vw;
         position:absolute;
@@ -36,45 +34,35 @@ const Tab = styled.div`
 `;
 
 const SearchTab = () => {
-    const { socket } = useSelector( state => state.socket );
-    const { searchResult , searchText } = useSelector( state => state.search );
-    const dispatch = useDispatch();
+    // const { socket } = useSelector( state => state.socket );
+    // const { searchResult , searchText } = useSelector( state => state.search );
+    // const dispatch = useDispatch();
     
     const [ tabOpened , setTabOpened ] = useState(false);
     
-    useEffect( () => {
-        if(searchText){
-            socket.emit( 'search' , { searchText } );
-            console.log('search tab');
-        }        
-    } , [ searchText , socket ] );
     return(
         <>
             {
                 tabOpened ?
                 <Tab>
-                    <TabHead />
+                    <TabHead setTabOpened={setTabOpened} />
                     <TabContent />
-                    <div onClick={ () => setTabOpened(false) } > back </div>
-                    <input type="text" name="search" id="search" 
-                        onChange={ e => dispatch( updateSearchTextAction({ searchText: e.target.value }) ) } />
-                    {
+                    {/* {
                         searchText!=='' && <div> Showing search result for { searchText } </div>
                     } 
                     {
-                        searchResult.map( (v,i) => {
+                        searchResult.filter( item => item.email !== email ).map( (v,i) => {
                             return <div 
                                 onClick={ () => dispatch( startChatAction({ withEmail:v.email }) )}
                                 key={i} >
                                         {v.email} 
                                     </div> ;
-                        })
-                    }
+                        }) */}
+                    {/* } */}
                 </Tab>: 
                 <Key onClick={ () => setTabOpened(true) } >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                        <path fill="currentColor" d="M19.005 3.175H4.674C3.642 3.175 3 3.789 3 4.821V21.02l3.544-3.514h12.461c1.033 0 2.064-1.06 2.064-2.093V4.821c-.001-1.032-1.032-1.646-2.064-1.646zm-4.989 9.869H7.041V11.1h6.975v1.944zm3-4H7.041V7.1h9.975v1.944z">
-                        </path>
+                        <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 7c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H3v-.99C3.2 16.29 6.3 15 9 15s5.8 1.29 6 2v1zm3-4v-3h-3V9h3V6h2v3h3v2h-3v3h-2z"/>
                     </svg>
                 </Key>
             }

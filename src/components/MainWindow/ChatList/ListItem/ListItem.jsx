@@ -26,6 +26,7 @@ const Div = styled.div`
                 font-weight:900;
             }
             #lastMsg{
+                word-break:break-all;
                 font-size: 15px;
                 color: #999;
                 overflow:hidden;
@@ -68,7 +69,11 @@ const ListItem = ({ value }) => {
                 
             <div id='image'> </div>
             <div id='email-lastMsg' > 
-                <div id='email'> { value.email } </div>
+                <div id='email'> 
+                    {
+                        value.email.length < 15 ? value.email : value.email.slice(0,15) + '...'
+                    }
+                </div>
                 <div id='lastMsg'> 
                     {
                         ( value.lastSendBy === email ? 'you' : value.lastSendBy ) + " : " + 
