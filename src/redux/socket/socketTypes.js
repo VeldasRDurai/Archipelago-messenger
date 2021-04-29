@@ -1,0 +1,3 @@
+const UPDATE_SOCKET = 'UPDATE_SOCKET';
+ 
+export { UPDATE_SOCKET };

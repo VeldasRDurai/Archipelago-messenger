@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { logedInAction } from '../../redux/isLoged/isLogedActions';
+import { logedInAction } from '../../redux/userDetails/userDetailsActions';
 
 import Loading from '../Loading/Loading';
 import ChatList from './ChatList/ChatList';
 
 const MainWindow = () => {
-    const [ userData , setUserData ] = useState('');
-    const [ loading , setLoading ] = useState(true);
+    const { isloged } = useSelector( state => state.userDetails );
     const dispatch = useDispatch();
-    const isLoged = useSelector( state => state.isloged );
     const history = useHistory();
+
+    const [ loading , setLoading ] = useState(true);
 
     useEffect( () => { 
         const dataFetcher = async () => {
@@ -21,17 +21,13 @@ const MainWindow = () => {
                 if( res.status === 200 ){
                     let data = await res.json();
                     console.log(data);
-                    setUserData(data);
-                    dispatch( logedInAction() );
+                    dispatch( logedInAction({ email:data.email , name:data.name }) );
                 } else {
                     console.log(res);
-                    // console.log(res.response);
                     history.push('/log-in');
                 }
                 setLoading(false);
-            } catch(e) {
-                console.log(e);
-            }
+            } catch(e) { console.log(e); }
         }
         dataFetcher();
     } , [ dispatch , history ] );
@@ -39,8 +35,9 @@ const MainWindow = () => {
     return(
         <>
             {
-                loading ? <Loading /> : 
-                isLoged ? <ChatList userData={userData} /> : null
+                loading ? <Loading  /> : 
+                isloged ? <ChatList /> : 
+                    <div> error  </div>
             }
         </>
     );

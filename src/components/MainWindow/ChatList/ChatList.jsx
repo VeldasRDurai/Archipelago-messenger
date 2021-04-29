@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { io } from "socket.io-client";
-// import { useSelector } from "react-redux";
 import styled from 'styled-components';
 
 import ListHeader from './ListHeader/ListHeader';
 import ListItem from './ListItem/ListItem';
 import SearchTab from './SearchTab/SearchTab';
 import Chatting from './Chatting/Chatting';
+
+import { updateOldChat, appendNewChat } from '../../../redux/chatDetails/chatDetailsActions';
+import { updateSearchResultAction } from '../../../redux/search/searchActions'
+import { updateSocket }  from '../../../redux/socket/socketActions';
 
 const Div = styled.div`
     @media (max-width:425px) {
@@ -15,55 +19,60 @@ const Div = styled.div`
     }
 `;
 
-const ChatList = ({ userData }) => { 
-    // const isLoged = useSelector( state => state.isloged );
-    const [ currentSocket, setCurrentSocket ] = useState(null);
-    const [ searchResult , setSearchResult ] = useState([]);
-    const [ allChat , setAllChat ] = useState({});
-    // const [ history , setHistory ] = useState([]);
-    const [ chatting , setChatting ] = useState({
-        isChatting: false ,
-        with : undefined
-    });
+const ChatList = () => { 
+    const { email } = useSelector( state => state.userDetails );
+    const { isChatting, withEmail } = useSelector( state => state.chatDetails );
+    const dispatch = useDispatch();
+
+    const [ history , setHistory ] = useState([]);
     
-    useEffect( () => {
+    useEffect( () =>
+     {
         console.log('here');
         const socket = io('http://localhost:4000/');
-        setCurrentSocket(socket);
+        dispatch( updateSocket({socket:socket}) );
         socket.on('connected' , () => {
-            socket.emit('newUser', userData );
+            socket.emit('newUser', { email } );
         });
-        socket.on('searchResult' , data => setSearchResult(data) );
+        socket.on('searchResult' , data => dispatch( updateSearchResultAction({ searchResult:data }) ));
         socket.on('invite', function(data) {
             console.log( data );
-            socket.emit("joinRoom",data)
+            socket.emit("joinRoom",data);
+            dispatch( appendNewChat({ newChat: data }) );
+            socket.emit('getHistory', { email } );
         });
         socket.on('previousMsg' , data => {
             console.log(data);
-            setAllChat(data);
+            dispatch( updateOldChat({ oldChat: [...data.oldChat] }) );
         });
         socket.on('reciveMsg', data => {
             console.log( data );
-            socket.emit('getHistory', userData );
+            dispatch( appendNewChat({ newChat: data }) );
+            if( data.sendBy === withEmail ){
+                socket.emit('watchedMsg', { email:email , with:withEmail } );
+            }
+            socket.emit('getHistory', { email } );
         });
         socket.on('setHistory' , data => {
-            // setHistory(data.history);
             console.log( data.history );
+            setHistory(data.history);
         });
-    } , [ userData ] );
+    } , [ email , dispatch , withEmail ] );
 
     return (
         <Div>
             {
-                !chatting.isChatting ? 
+                !isChatting ? 
                     <>
                         <ListHeader />
                         {
-                            [ 'a' , 'b' , '' ].map( (v,i) =>  <ListItem key={i} name={v} /> )
+                            history.map( ( item , index ) => { 
+                                return <ListItem key={index} value={item} /> ;
+                            })
                         } 
-                        <SearchTab socket={ currentSocket } searchResult={searchResult} setChatting={setChatting} />
+                        <SearchTab />
                     </>:
-                    <Chatting setChatting={setChatting} userData={ userData } with={ chatting.with } socket={ currentSocket } allChat={allChat} />
+                    <Chatting />
             }
         </Div>
     );
