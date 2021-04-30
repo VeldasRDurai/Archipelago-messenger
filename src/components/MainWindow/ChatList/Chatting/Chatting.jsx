@@ -31,16 +31,16 @@ const Chatting = () => {
     const [ message , setMessage ] = useState('');
 
     useEffect( () => {
-        socket.emit('createRoom', { email:email , with:withEmail });
+        socket.emit('start-chat', { email:email , with:withEmail });
     },[]);
 
     const sendMsg = () => {
-        socket.emit( 'sendMsg' , { email:email , with:withEmail , message:message} );
+        socket.emit( 'send-message' , { email:email , with:withEmail , message:message} );
         dispatch( appendNewChat({ newChat: { sendBy:email , msg:message , msgTime: new Date() } }) );
     }
     const goBack = () => {
         dispatch( endChatAction() );
-        socket.emit('getHistory', { email } );
+        socket.emit('get-history', { email } );
     }
     return(
         <Div>

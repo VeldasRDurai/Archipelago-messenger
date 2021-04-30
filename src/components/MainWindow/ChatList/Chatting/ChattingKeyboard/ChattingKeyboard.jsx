@@ -44,7 +44,7 @@ const ChattingKeyboard = () => {
     const [ message , setMessage ] = useState('');
 
     const sendMsg = () => {
-        socket.emit( 'sendMsg' , { email:email , with:withEmail , message:message} );
+        socket.emit( 'send-message' , { email:email , with:withEmail , message:message} );
         dispatch( appendNewChat({ newChat: { sendBy:email , msg:message , msgTime: new Date() } }) );
         refInput.current.value = '';
     }

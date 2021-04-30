@@ -20,7 +20,7 @@ const Div = styled.div`
 `;
 
 const ChatList = () => { 
-    const { email } = useSelector( state => state.userDetails );
+    const { email , name } = useSelector( state => state.userDetails );
     const { isChatting, withEmail } = useSelector( state => state.chatDetails );
     const dispatch = useDispatch();
 
@@ -32,15 +32,9 @@ const ChatList = () => {
         const socket = io('http://localhost:4000/');
         dispatch( updateSocket({socket:socket}) );
         socket.on('connected' , () => {
-            socket.emit('newUser', { email } );
+            socket.emit('new-user', { email , name } );
         });
-        socket.on('searchResult' , data => dispatch( updateSearchResultAction({ searchResult:data }) ));
-        socket.on('invite', function(data) {
-            console.log( data );
-            socket.emit("joinRoom",data);
-            dispatch( appendNewChat({ newChat: data }) );
-            socket.emit('getHistory', { email } );
-        });
+        socket.on('search-result' , data => dispatch( updateSearchResultAction({ searchResult:data }) ));
         socket.on('previousMsg' , data => {
             console.log(data);
             dispatch( updateOldChat({ oldChat: [...data.oldChat] }) );
@@ -48,12 +42,9 @@ const ChatList = () => {
         socket.on('reciveMsg', data => {
             console.log( data );
             dispatch( appendNewChat({ newChat: data }) );
-            if( data.sendBy === withEmail ){
-                socket.emit('watchedMsg', { email:email , with:withEmail } );
-            }
-            socket.emit('getHistory', { email } );
+            socket.emit('get-history', { email } );
         });
-        socket.on('setHistory' , data => {
+        socket.on('set-history' , data => {
             console.log( data.history );
             setHistory(data.history);
         });

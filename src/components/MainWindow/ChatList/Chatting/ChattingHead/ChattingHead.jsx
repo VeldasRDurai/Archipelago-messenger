@@ -36,7 +36,7 @@ const ChattingHead = () => {
     
     const goBack = () => {
         dispatch( endChatAction() );
-        socket.emit('getHistory', { email } );
+        socket.emit('get-history', { email } );
     }
 
     return(
