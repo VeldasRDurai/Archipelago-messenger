@@ -47,18 +47,6 @@ const SearchTab = () => {
                 <Tab>
                     <TabHead setTabOpened={setTabOpened} />
                     <TabContent />
-                    {/* {
-                        searchText!=='' && <div> Showing search result for { searchText } </div>
-                    } 
-                    {
-                        searchResult.filter( item => item.email !== email ).map( (v,i) => {
-                            return <div 
-                                onClick={ () => dispatch( startChatAction({ withEmail:v.email }) )}
-                                key={i} >
-                                        {v.email} 
-                                    </div> ;
-                        }) */}
-                    {/* } */}
                 </Tab>: 
                 <Key onClick={ () => setTabOpened(true) } >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">

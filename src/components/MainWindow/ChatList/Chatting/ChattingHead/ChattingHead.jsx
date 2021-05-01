@@ -31,7 +31,7 @@ const Div = styled.div`
 const ChattingHead = () => {
     const { email } = useSelector( state => state.userDetails );
     const { socket } = useSelector( state => state.socket );
-    const { withEmail } = useSelector( state => state.chatDetails );
+    const { chattingWithEmail } = useSelector( state => state.chatDetails );
     const dispatch = useDispatch();
     
     const goBack = () => {
@@ -49,7 +49,7 @@ const ChattingHead = () => {
             </svg>
             <div id="chatting-with" > 
                 {
-                    withEmail.length > 20 ? withEmail.slice(0,20) + '...' : withEmail  
+                    chattingWithEmail.length > 20 ? chattingWithEmail.slice(0,20) + '...' : chattingWithEmail  
                 } 
             </div>
         </Div>

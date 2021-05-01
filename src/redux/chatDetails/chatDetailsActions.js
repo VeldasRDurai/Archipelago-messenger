@@ -1,9 +1,11 @@
 import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, END_CHAT } from './chatDetailsTypes';
 
-const startChatAction = ({ withEmail }) => {
+const startChatAction = ({ chattingWithEmail, chattingWithName, chattingWithId }) => {
     return { 
         type : START_CHAT ,
-        withEmail : withEmail 
+        chattingWithEmail ,
+        chattingWithName ,
+        chattingWithId
     }
 }
 const updateOldChat = ({ oldChat }) => {

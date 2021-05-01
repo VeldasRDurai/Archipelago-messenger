@@ -23,19 +23,19 @@ const Div = styled.div`
 `;
 
 const Chatting = () => {
-    const { email } = useSelector( state => state.userDetails );
-    const { withEmail , oldChat } = useSelector( state => state.chatDetails );
+    const { email, name, _id } = useSelector( state => state.userDetails );
+    const { chattingWithEmail, chattingWithName, chattingWithId, oldChat } = useSelector( state => state.chatDetails );
     const { socket } = useSelector( state => state.socket );
     const dispatch = useDispatch();
     
     const [ message , setMessage ] = useState('');
 
     useEffect( () => {
-        socket.emit('start-chat', { email:email , with:withEmail });
+        socket.emit('start-chat', { email, name, _id, chattingWithEmail, chattingWithName, chattingWithId });
     },[]);
 
     const sendMsg = () => {
-        socket.emit( 'send-message' , { email:email , with:withEmail , message:message} );
+        socket.emit( 'send-message' , { email:email , with:chattingWithEmail , message:message} );
         dispatch( appendNewChat({ newChat: { sendBy:email , msg:message , msgTime: new Date() } }) );
     }
     const goBack = () => {
@@ -47,7 +47,7 @@ const Chatting = () => {
             <ChattingHead />
             <div style={{ display:'none' }} >
                 <div onClick={ () => goBack() } > back </div>
-                Chatting with { withEmail }
+                Chatting with { chattingWithEmail }
                 <input type="text" onChange={ e => setMessage(e.target.value) } />
                 <button onClick={()=>sendMsg()} > send </button>
                 <div>

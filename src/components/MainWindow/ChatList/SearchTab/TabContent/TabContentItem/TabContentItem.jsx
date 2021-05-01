@@ -36,8 +36,14 @@ const TabContentItem = ({ value }) => {
 
     const index = () => value.email.indexOf(searchText) ;
 
+    // [ 'email', 'name', '_id' ], 
+
     return(
-        <Div onClick={ () => dispatch( startChatAction({ withEmail:value.email }) )}>
+        <Div onClick={ () => dispatch( startChatAction({ 
+                chattingWithEmail : value.email, 
+                chattingWithName : value.name,
+                chattingWithId : value.id 
+            }) )} >
             <div id='name' >{value.name }</div>
             <div id='email'>   
                 {/* { value.email } */}

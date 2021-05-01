@@ -62,11 +62,19 @@ const ListItem = ({ value }) => {
         first.getFullYear() === second.getFullYear() &&
         first.getMonth() === second.getMonth() &&
         first.getDate() === second.getDate();
+        
+        // email: name : id : lastSendBy : lastMessage : lastMessageTime :
+        // lastDelivered : lastReaded : unRead  :
 
     return(
-        <Div onClick={ () => dispatch( startChatAction({ withEmail:value.email }) )}
+        <Div onClick={ () => dispatch( startChatAction({ 
+                chattingWithEmail : value.email, 
+                chattingWithName : value.name,
+                chattingWithId : value.id 
+            }) )}
             unRead={value.unRead} >
                 
+
             <div id='image'> </div>
             <div id='email-lastMsg' > 
                 <div id='email'> 
@@ -77,16 +85,16 @@ const ListItem = ({ value }) => {
                 <div id='lastMsg'> 
                     {
                         ( value.lastSendBy === email ? 'you' : value.lastSendBy ) + " : " + 
-                        ( value.lastMsg.length < 25 ? value.lastMsg : value.lastMsg.slice(0,24) + '...')
+                        ( value.lastMessage.length < 25 ? value.lastMessage : value.lastMessage.slice(0,24) + '...')
                     } 
                 </div>   
             </div>
             <div id='lastMsgTime-unRead' > 
                 <div id='lastMsgTime'> 
                     { 
-                        datesAreOnSameDay(new Date(), new Date(value.lastMsgTime)) ? 
-                            new Date(value.lastMsgTime).toLocaleTimeString( [], {timeStyle: 'short'} ) : 
-                            new Date(value.lastMsgTime).toLocaleDateString()
+                        datesAreOnSameDay(new Date(), new Date(value.lastMessageTime)) ? 
+                            new Date(value.lastMessageTime).toLocaleTimeString( [], {timeStyle: 'short'} ) : 
+                            new Date(value.lastMessageTime).toLocaleDateString()
                     } 
                 </div>
                 <div id='unRead'>{ value.unRead } </div>  

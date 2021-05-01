@@ -38,11 +38,11 @@ const Div = styled.div`
 `
 
 const SingleChat = ({ date , time , name , chat , read }) => {
-    const { withEmail } = useSelector( state => state.chatDetails );
+    const { chattingWithEmail } = useSelector( state => state.chatDetails );
 
     return (
-        <Div name={name} chatingWith={withEmail} >
-            <div>{ name === withEmail ? name : "You" }</div>
+        <Div name={name} chatingWith={chattingWithEmail} >
+            <div>{ name === chattingWithEmail ? name : "You" }</div>
             <div>{chat}</div>
             <div>
                 {date + " " + time + "  "} 

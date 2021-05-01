@@ -1,10 +1,11 @@
 import { LOGED_IN , LOGED_OUT } from './userDetailsTypes';
 
-const logedInAction = ({ email , name }) => {
+const logedInAction = ({ email, name, _id }) => {
     return { 
-        type : LOGED_IN ,
-        email: email ,
-        name : name
+        type : LOGED_IN, 
+        email ,
+        name , 
+        _id
     }
 }
 const logedOutAction = () => {

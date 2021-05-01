@@ -20,8 +20,8 @@ const Div = styled.div`
 `;
 
 const ChatList = () => { 
-    const { email , name } = useSelector( state => state.userDetails );
-    const { isChatting, withEmail } = useSelector( state => state.chatDetails );
+    const { email, name, _id } = useSelector( state => state.userDetails );
+    const { isChatting, chattingWithEmail } = useSelector( state => state.chatDetails );
     const dispatch = useDispatch();
 
     const [ history , setHistory ] = useState([]);
@@ -30,12 +30,12 @@ const ChatList = () => {
      {
         console.log('here');
         const socket = io('http://localhost:4000/');
-        dispatch( updateSocket({socket:socket}) );
+        dispatch( updateSocket({socket}) );
         socket.on('connected' , () => {
-            socket.emit('new-user', { email , name } );
+            socket.emit('new-user', { email, name, _id } );
         });
         socket.on('search-result' , data => dispatch( updateSearchResultAction({ searchResult:data }) ));
-        socket.on('previousMsg' , data => {
+        socket.on('previous-message' , data => {
             console.log(data);
             dispatch( updateOldChat({ oldChat: [...data.oldChat] }) );
         });
