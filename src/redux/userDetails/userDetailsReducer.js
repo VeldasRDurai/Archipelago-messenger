@@ -14,7 +14,7 @@ const userDetailsReducer = ( state = initialState , action ) => {
                 isloged : true,
                 email   : action.email,
                 name    : action.name,
-                _id     : action.id
+                _id     : action._id
             }
         case LOGED_OUT : 
             return { ...state ,

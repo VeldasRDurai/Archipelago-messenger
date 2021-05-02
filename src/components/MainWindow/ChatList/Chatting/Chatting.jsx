@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { appendNewChat } from '../../../../redux/chatDetails/chatDetailsActions';
+import { appendNewChatAction } from '../../../../redux/chatDetails/chatDetailsActions';
 import { endChatAction } from '../../../../redux/chatDetails/chatDetailsActions';
 
 import ChattingHead from './ChattingHead/ChattingHead';
@@ -36,11 +36,12 @@ const Chatting = () => {
 
     const sendMsg = () => {
         socket.emit( 'send-message' , { email:email , with:chattingWithEmail , message:message} );
-        dispatch( appendNewChat({ newChat: { sendBy:email , msg:message , msgTime: new Date() } }) );
+        dispatch( appendNewChatAction({ newChat: { sendBy:email , msg:message , msgTime: new Date() } }) );
     }
     const goBack = () => {
         dispatch( endChatAction() );
-        socket.emit('get-history', { email } );
+        socket.emit('end-chat', { email, name, _id } );
+        socket.emit('get-history', { email, name, _id } );
     }
     return(
         <Div>

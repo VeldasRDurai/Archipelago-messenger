@@ -1,4 +1,4 @@
-import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, END_CHAT } from './chatDetailsTypes';
+import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, HE_IS_ONLINE, HE_IS_OFFLINE, END_CHAT } from './chatDetailsTypes';
 
 const startChatAction = ({ chattingWithEmail, chattingWithName, chattingWithId }) => {
     return { 
@@ -8,16 +8,27 @@ const startChatAction = ({ chattingWithEmail, chattingWithName, chattingWithId }
         chattingWithId
     }
 }
-const updateOldChat = ({ oldChat }) => {
+const updateOldChatAction = ({ oldChat }) => {
     return { 
         type : UPDATE_OLD_CHAT ,
         oldChat : oldChat
     }
 }
-const appendNewChat = ({ newChat }) => {
+const appendNewChatAction = ({ newChat }) => {
     return {
         type : APPEND_NEW_CHAT ,
         newChat : newChat
+    }
+}
+const heIsOnlineAction = () => {
+    return {
+        type : HE_IS_ONLINE 
+    }
+}
+const heIsOfflineAction = ({ lastSeen }) => {
+    return {
+        type :HE_IS_OFFLINE ,
+        lastSeen
     }
 }
 const endChatAction = () => {
@@ -26,4 +37,4 @@ const endChatAction = () => {
     }
 }
 
-export { startChatAction, updateOldChat, appendNewChat, endChatAction };
+export { startChatAction, updateOldChatAction, appendNewChatAction, heIsOnlineAction, heIsOfflineAction, endChatAction };

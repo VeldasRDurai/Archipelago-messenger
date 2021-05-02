@@ -42,7 +42,7 @@ const TabContentItem = ({ value }) => {
         <Div onClick={ () => dispatch( startChatAction({ 
                 chattingWithEmail : value.email, 
                 chattingWithName : value.name,
-                chattingWithId : value.id 
+                chattingWithId : value._id 
             }) )} >
             <div id='name' >{value.name }</div>
             <div id='email'>   

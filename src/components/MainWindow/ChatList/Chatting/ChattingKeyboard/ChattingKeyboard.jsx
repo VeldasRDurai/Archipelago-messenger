@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { appendNewChat } from '../../../../../redux/chatDetails/chatDetailsActions';
+import { appendNewChatAction } from '../../../../../redux/chatDetails/chatDetailsActions';
 
 const Div = styled.div`
     @media (max-width:425px) {
@@ -35,8 +35,8 @@ const Div = styled.div`
 `;
 
 const ChattingKeyboard = () => {
-    const { email, _id } = useSelector( state => state.userDetails );
-    const { chattingWithEmail, chattingWithId } = useSelector( state => state.chatDetails );
+    const { email, name, _id } = useSelector( state => state.userDetails );
+    const { chattingWithEmail, chattingWithName, chattingWithId } = useSelector( state => state.chatDetails );
     const { socket } = useSelector( state => state.socket );
     const dispatch = useDispatch();
 
@@ -44,8 +44,8 @@ const ChattingKeyboard = () => {
     const [ message , setMessage ] = useState('');
 
     const sendMsg = () => {
-        socket.emit( 'send-message' , { email, _id, chattingWithEmail, chattingWithId, message } );
-        dispatch( appendNewChat({ newChat: { sendBy:email , msg:message , msgTime: new Date() } }) );
+        socket.emit( 'send-message' , { email, name, _id, chattingWithEmail, chattingWithName, chattingWithId, message } );
+        dispatch( appendNewChatAction({ newChat: { sendBy:email , message:message , messageTime: new Date() } }) );
         refInput.current.value = '';
     }
 

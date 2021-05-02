@@ -7,7 +7,6 @@ import { endChatAction } from '../../../../../redux/chatDetails/chatDetailsActio
 
 const Div = styled.div`
     @media (max-width:425px) {
-        font-family: 'Merienda One', cursive;
         overflow:hidden;
         height:13%;
         box-sizing:border-box;
@@ -24,20 +23,33 @@ const Div = styled.div`
             margin-left:8px;
             width:80%;
             overflow:hidden;
+            #online {
+                font-family:'fangsong';
+                font-size:14px;
+            }
+            #name{
+                font-family: 'Merienda One', cursive;
+            }
         }
     }
 `;
 
 const ChattingHead = () => {
-    const { email } = useSelector( state => state.userDetails );
+    const { _id } = useSelector( state => state.userDetails );
     const { socket } = useSelector( state => state.socket );
-    const { chattingWithEmail } = useSelector( state => state.chatDetails );
+    const { chattingWithName, online, lastSeen } = useSelector( state => state.chatDetails );
     const dispatch = useDispatch();
     
     const goBack = () => {
         dispatch( endChatAction() );
-        socket.emit('get-history', { email } );
+        socket.emit('end-chat');
+        socket.emit('get-history', { _id } );
     }
+
+    const datesAreOnSameDay = (first, second) =>
+        first.getFullYear() === second.getFullYear() &&
+        first.getMonth() === second.getMonth() &&
+        first.getDate() === second.getDate();
 
     return(
         <Div>
@@ -48,9 +60,17 @@ const ChattingHead = () => {
                     d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"/>
             </svg>
             <div id="chatting-with" > 
-                {
-                    chattingWithEmail.length > 20 ? chattingWithEmail.slice(0,20) + '...' : chattingWithEmail  
-                } 
+                <div id='name' > { chattingWithName.length > 15 ? chattingWithName.slice(0,11) + '...' : chattingWithName } </div>
+                <div id='online'>
+                    {
+                        online === undefined ? 'loading...':
+                        online ? 'online':
+                        `last seen ${ datesAreOnSameDay(new Date(),new Date(lastSeen)) ? 'today': new Date(lastSeen).toLocaleDateString('pt-PT') } at ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }`
+                        // datesAreOnSameDay( new Date(), new Date(lastSeen) ) ? 
+                            // `last seen today at ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }` :
+                            // `last seen ${new Date(lastSeen).toLocaleDateString('pt-PT')} at ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }`
+                    }
+                </div>
             </div>
         </Div>
     );

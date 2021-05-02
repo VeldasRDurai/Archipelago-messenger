@@ -1,11 +1,13 @@
-import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, END_CHAT } from './chatDetailsTypes';
+import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, HE_IS_ONLINE, HE_IS_OFFLINE, END_CHAT } from './chatDetailsTypes';
 
 const initialState = {
     isChatting : false,
     chattingWithEmail : '', 
     chattingWithName : '',
     chattingWithId : '', 
-    oldChat : []
+    oldChat : [] ,
+    online : undefined ,
+    lastSeen : undefined
 }
 
 const chatDetailsReducer = ( state = initialState , action ) => {
@@ -25,13 +27,25 @@ const chatDetailsReducer = ( state = initialState , action ) => {
             return { ...state ,
                 oldChat :  [ ...state.oldChat ,  action.newChat ]
             };
+        case HE_IS_ONLINE :
+            return { ...state ,
+                online : true ,
+                lastSeen : undefined
+            };
+        case HE_IS_OFFLINE : 
+            return { ...state ,
+                online : false ,
+                lastSeen : action.lastSeen
+            };
         case END_CHAT : 
             return { ...state ,
                 isChatting: false ,
                 chattingWithEmail : '' , 
                 chattingWithName : '' ,
                 chattingWithId : '' ,
-                oldChat  : []
+                oldChat  : [] ,
+                online : undefined ,
+                lastSeen : undefined
             };
         default : 
             return state;

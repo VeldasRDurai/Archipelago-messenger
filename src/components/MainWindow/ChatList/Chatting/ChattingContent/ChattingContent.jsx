@@ -36,17 +36,17 @@ const ChattingContent = () => {
                     <>
                         {
                             index !== 0 ?
-                            !datesAreOnSameDay( new Date(item.msgTime) , new Date( oldChat[index-1].msgTime )) &&
-                                <DateDiv date={item.msgTime} /> :
-                            <DateDiv date={item.msgTime} />
+                            !datesAreOnSameDay( new Date(item.messageTime) , new Date( oldChat[index-1].messageTime )) &&
+                                <DateDiv date={item.messageTime} /> :
+                            <DateDiv date={item.messageTime} />
                         }
-                        {/* // <div> { item.sendBy + ' :- ' + item.msg} </div>       */}
-                        <SingleChat key={index}
-                            date={new Date(item.msgTime).toLocaleDateString()}
-                            time={new Date(item.msgTime).toLocaleTimeString()} 
+                        <SingleChat key={index} value={item} />
+                            {/* date={new Date(item.messageTime).toLocaleDateString()}
+                            time={new Date(item.messageTime).toLocaleTimeString()} 
                             name={item.sendBy} 
-                            chat={item.msg} 
-                            read={item.read} />
+                            chat={item.message} 
+                            readed={item.readed}
+                            delivered={item.delivered} /> */}
                     </>
                 ) 
             }

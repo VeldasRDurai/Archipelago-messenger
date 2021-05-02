@@ -8,7 +8,7 @@ import ListItem from './ListItem/ListItem';
 import SearchTab from './SearchTab/SearchTab';
 import Chatting from './Chatting/Chatting';
 
-import { updateOldChat, appendNewChat } from '../../../redux/chatDetails/chatDetailsActions';
+import { updateOldChatAction, appendNewChatAction, heIsOnlineAction, heIsOfflineAction } from '../../../redux/chatDetails/chatDetailsActions';
 import { updateSearchResultAction } from '../../../redux/search/searchActions'
 import { updateSocket }  from '../../../redux/socket/socketActions';
 
@@ -21,7 +21,7 @@ const Div = styled.div`
 
 const ChatList = () => { 
     const { email, name, _id } = useSelector( state => state.userDetails );
-    const { isChatting, chattingWithEmail } = useSelector( state => state.chatDetails );
+    const { isChatting } = useSelector( state => state.chatDetails );
     const dispatch = useDispatch();
 
     const [ history , setHistory ] = useState([]);
@@ -37,16 +37,21 @@ const ChatList = () => {
         socket.on('search-result' , data => dispatch( updateSearchResultAction({ searchResult:data }) ));
         socket.on('previous-message' , data => {
             console.log(data);
-            dispatch( updateOldChat({ oldChat: [...data.oldChat] }) );
+            dispatch( updateOldChatAction({ oldChat: [...data.oldChat] }) );
+        });
+        socket.on('he-is-online', () => dispatch( heIsOnlineAction() ));
+        socket.on('he-is-offline', ({ lastSeen }) => {
+            console.log( 'he-is-offline' , lastSeen );
+            dispatch( heIsOfflineAction({ lastSeen }) ) ;
         });
         socket.on('reciveMsg', data => {
             console.log( data );
-            dispatch( appendNewChat({ newChat: data }) );
+            dispatch( appendNewChatAction({ newChat: data }) );
             socket.emit('get-history', { email } );
         });
-        socket.on('set-history' , data => {
-            console.log( data.history );
-            setHistory(data.history);
+        socket.on('set-history' , ({ history }) => {
+            console.log( history );
+            setHistory( history );
         });
     } , [] );
 

@@ -12,21 +12,9 @@ const Div = styled.div`
     font-size:12px;
 `;
 const DateDiv = ({ date }) => {
-    //  const style = {
-    //     alignSelf:"center",
-    //     margin:"10px 10px 10px 10px ",
-    //     height : "auto", 
-    //     width : "auto",
-    //     backgroundColor : "#e1f3fb",
-    //     color:"black",
-    //     boxShadow :"2px 2px 4px grey" ,
-    //     borderRadius : "7px",
-    //     padding : "4px" ,
-    //     fontSize : "12px"
-    // };
     return ( 
         <Div>
-            { new Date(date).toLocaleDateString() }
+            { new Date(date).toLocaleDateString('pt-PT') }
         </Div>
     );
 }
