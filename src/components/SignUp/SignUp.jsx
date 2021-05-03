@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-// import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
 const Div = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    & > * {
-        margin-top:10px;
+    @media (max-width:425px) {
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        & > * {
+            margin-top:10px;
+        }
     }
 `;
 
@@ -51,7 +52,6 @@ const SignUp = () => {
             <hr/>
             <div> Already have an account ? </div>
             <input type="button" value="Log In"
-                // onClick={ () => window.location.href = "http://localhost:3000/log-in" }/>
                 onClick={ () => history.push('/log-in') }/>
         </Div>
     );

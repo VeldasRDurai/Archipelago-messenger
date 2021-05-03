@@ -35,14 +35,15 @@ const Div = styled.div`
 `;
 
 const ChattingHead = () => {
-    const { _id } = useSelector( state => state.userDetails );
+    const { email, _id } = useSelector( state => state.userDetails );
     const { socket } = useSelector( state => state.socket );
-    const { chattingWithName, online, lastSeen } = useSelector( state => state.chatDetails );
+    const { chattingWithEmail, chattingWithName, online, lastSeen, isTyping } = useSelector( state => state.chatDetails );
     const dispatch = useDispatch();
     
     const goBack = () => {
         dispatch( endChatAction() );
         socket.emit('end-chat');
+        socket.emit('typing',{ isTyping:false, chattingWithEmail, email });
         socket.emit('get-history', { _id } );
     }
 
@@ -63,6 +64,7 @@ const ChattingHead = () => {
                 <div id='name' > { chattingWithName.length > 15 ? chattingWithName.slice(0,11) + '...' : chattingWithName } </div>
                 <div id='online'>
                     {
+                        isTyping ? 'typing ...' :
                         online === undefined ? 'loading...':
                         online ? 'online':
                         `last seen ${ datesAreOnSameDay(new Date(),new Date(lastSeen)) ? 'today': new Date(lastSeen).toLocaleDateString('pt-PT') } at ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }`

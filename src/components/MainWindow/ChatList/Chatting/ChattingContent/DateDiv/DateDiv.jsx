@@ -12,9 +12,18 @@ const Div = styled.div`
     font-size:12px;
 `;
 const DateDiv = ({ date }) => {
+    
+    const datesAreOnSameDay = (first, second) =>
+        first.getFullYear() === second.getFullYear() &&
+        first.getMonth() === second.getMonth() &&
+        first.getDate() === second.getDate();
+
     return ( 
         <Div>
-            { new Date(date).toLocaleDateString('pt-PT') }
+            {
+                datesAreOnSameDay( new Date(), new Date(date) ) ?
+                    'Today': new Date(date).toLocaleDateString('pt-PT') 
+            }
         </Div>
     );
 }

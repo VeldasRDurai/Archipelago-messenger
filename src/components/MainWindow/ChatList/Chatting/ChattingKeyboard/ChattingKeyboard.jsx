@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -42,6 +42,18 @@ const ChattingKeyboard = () => {
 
     const refInput = useRef()
     const [ message , setMessage ] = useState('');
+    const [ imTyping, setImTyping ] = useState(false);
+
+    useEffect(() => {
+        if( message !== '' && !imTyping ){
+            setImTyping(true);
+            socket.emit('typing',{ isTyping:true, chattingWithEmail, email });
+        } 
+        if( message === '' && imTyping  ){
+            setImTyping(false);
+            socket.emit('typing',{ isTyping:false, chattingWithEmail, email });
+        } 
+    }, [ message ])
 
     const sendMsg = () => {
         socket.emit( 'send-message' , { email, name, _id, chattingWithEmail, chattingWithName, chattingWithId, message } );

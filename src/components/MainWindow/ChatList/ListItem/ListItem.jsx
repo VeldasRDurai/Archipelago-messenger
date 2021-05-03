@@ -6,7 +6,10 @@ import { startChatAction } from '../../../../redux/chatDetails/chatDetailsAction
 
 const Div = styled.div`
     @media (max-width:425px) {
+        box-sizing:border-box;
         height:60px;
+        width:100%;
+        overflow:hidden;
         padding:0 3%;
         display:flex;
         flex-direction:row;
@@ -21,14 +24,18 @@ const Div = styled.div`
         }
         #email-lastMsg {
             margin-left:10px;
+            width:65%;
+            overflow:hidden;
             #email {
                 font-size:20px;
                 font-weight:900;
+                width:100%;
+                overflow:hidden;
             }
             #lastMsg{
-                word-break:break-all;
                 font-size: 15px;
                 color: #999;
+                width:100%;
                 overflow:hidden;
             }
         }
@@ -38,6 +45,7 @@ const Div = styled.div`
             flex-direction: column;
             align-items: flex-end;
             #lastMsgTime{
+                color:${ ({unRead}) => unRead === 0 ? 'inherit':'#06d755' };
                 font-size:15px;
             }
             #unRead {
@@ -79,12 +87,12 @@ const ListItem = ({ value }) => {
             <div id='email-lastMsg' > 
                 <div id='email'> 
                     {
-                        value.email.length < 15 ? value.email : value.email.slice(0,15) + '...'
+                        value.name.length < 15 ? value.name : value.name.slice(0,15) + '...'
                     }
                 </div>
                 <div id='lastMsg'> 
                     {
-                        ( value.lastSendBy === email ? 'you' : value.lastSendBy ) + " : " + 
+                        ( value.lastSendBy === email ? 'you' : value.name ) + " : " + 
                         ( value.lastMessage.length < 25 ? value.lastMessage : value.lastMessage.slice(0,24) + '...')
                     } 
                 </div>   

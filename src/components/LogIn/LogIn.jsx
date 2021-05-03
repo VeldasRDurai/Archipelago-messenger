@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-// import { Redirect } from 'react-router';
 import styled from 'styled-components';
 
 const Div = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    & > * {
-        margin-top:10px;
-    }
+     @media (max-width:425px) {
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        & > * {
+            margin-top:10px;
+        }
+     }
 `;
 
 const LogIn = () => {
@@ -19,9 +20,7 @@ const LogIn = () => {
     const [ password , setPassword ] = useState('');
     
     const logInSubmit = async () => {
-        console.log( email , password );
         try{
-            console.log( email , password );
             const data = await fetch( "http://localhost:4000/log-in" , {
                 credentials: 'include' , 
                 method: 'POST',
@@ -47,9 +46,7 @@ const LogIn = () => {
             <input type="button" value="log in" onClick = { logInSubmit } />
             <hr/>
             <div> new user ? </div>
-            <input type="button" value="sign up" 
-                // onClick={ () => window.location.href = "http://localhost:3000/sign-up" }/>
-                onClick={ () => history.push('/sign-up') }/>
+            <input type="button" value="sign up" onClick={ () => history.push('/sign-up') }/>
         </Div>
     );
 }

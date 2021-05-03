@@ -1,10 +1,11 @@
-import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, HE_IS_ONLINE, HE_IS_OFFLINE, END_CHAT } from './chatDetailsTypes';
+import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, HE_IS_ONLINE, HE_IS_OFFLINE, TOGGLE_TYPING, END_CHAT } from './chatDetailsTypes';
 
 const initialState = {
     isChatting : false,
     chattingWithEmail : '', 
     chattingWithName : '',
     chattingWithId : '', 
+    isTyping : false ,
     oldChat : [] ,
     online : undefined ,
     lastSeen : undefined
@@ -37,6 +38,10 @@ const chatDetailsReducer = ( state = initialState , action ) => {
                 online : false ,
                 lastSeen : action.lastSeen
             };
+        case TOGGLE_TYPING : 
+            return { ...state ,
+                isTyping : action.isTyping
+            }
         case END_CHAT : 
             return { ...state ,
                 isChatting: false ,

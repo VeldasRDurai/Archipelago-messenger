@@ -1,4 +1,4 @@
-import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, HE_IS_ONLINE, HE_IS_OFFLINE, END_CHAT } from './chatDetailsTypes';
+import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, HE_IS_ONLINE, HE_IS_OFFLINE, TOGGLE_TYPING, END_CHAT } from './chatDetailsTypes';
 
 const startChatAction = ({ chattingWithEmail, chattingWithName, chattingWithId }) => {
     return { 
@@ -31,10 +31,24 @@ const heIsOfflineAction = ({ lastSeen }) => {
         lastSeen
     }
 }
+const toggleTypingAction = ({ isTyping }) => {
+    return {
+        type : TOGGLE_TYPING ,
+        isTyping
+    }
+}
 const endChatAction = () => {
     return {
         type : END_CHAT 
     }
 }
 
-export { startChatAction, updateOldChatAction, appendNewChatAction, heIsOnlineAction, heIsOfflineAction, endChatAction };
+export { 
+    startChatAction, 
+    updateOldChatAction, 
+    appendNewChatAction, 
+    heIsOnlineAction, 
+    heIsOfflineAction, 
+    toggleTypingAction,
+    endChatAction 
+};

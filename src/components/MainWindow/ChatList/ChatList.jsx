@@ -8,7 +8,7 @@ import ListItem from './ListItem/ListItem';
 import SearchTab from './SearchTab/SearchTab';
 import Chatting from './Chatting/Chatting';
 
-import { updateOldChatAction, appendNewChatAction, heIsOnlineAction, heIsOfflineAction } from '../../../redux/chatDetails/chatDetailsActions';
+import { updateOldChatAction, appendNewChatAction, heIsOnlineAction, heIsOfflineAction, toggleTypingAction } from '../../../redux/chatDetails/chatDetailsActions';
 import { updateSearchResultAction } from '../../../redux/search/searchActions'
 import { updateSocket }  from '../../../redux/socket/socketActions';
 
@@ -44,11 +44,7 @@ const ChatList = () => {
             console.log( 'he-is-offline' , lastSeen );
             dispatch( heIsOfflineAction({ lastSeen }) ) ;
         });
-        socket.on('reciveMsg', data => {
-            console.log( data );
-            dispatch( appendNewChatAction({ newChat: data }) );
-            socket.emit('get-history', { email } );
-        });
+        socket.on('toggle-typing', ({isTyping}) => dispatch( toggleTypingAction({ isTyping }) ));
         socket.on('set-history' , ({ history }) => {
             console.log( history );
             setHistory( history );
