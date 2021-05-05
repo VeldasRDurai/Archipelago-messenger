@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 const Div = styled.div`
     @media (max-width:425px) {
+        height:100%;
+        width:100%;
+        box-sizing:border-box;
         display:flex;
         flex-direction:column;
         justify-content:center;

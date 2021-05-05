@@ -7,8 +7,9 @@ import ListHeader from './ListHeader/ListHeader';
 import ListItem from './ListItem/ListItem';
 import SearchTab from './SearchTab/SearchTab';
 import Chatting from './Chatting/Chatting';
+import TapHere from './TapHere/TapHere';
 
-import { updateOldChatAction, appendNewChatAction, heIsOnlineAction, heIsOfflineAction, toggleTypingAction } from '../../../redux/chatDetails/chatDetailsActions';
+import { updateOldChatAction, heIsOnlineAction, heIsOfflineAction, toggleTypingAction } from '../../../redux/chatDetails/chatDetailsActions';
 import { updateSearchResultAction } from '../../../redux/search/searchActions'
 import { updateSocket }  from '../../../redux/socket/socketActions';
 
@@ -16,6 +17,7 @@ const Div = styled.div`
     @media (max-width:425px) {
         height:100%;
         width:100%;
+        position:relative;
     }
 `;
 
@@ -66,6 +68,7 @@ const ChatList = () => {
                     </>:
                     <Chatting />
             }
+            <TapHere />
         </Div>
     );
 

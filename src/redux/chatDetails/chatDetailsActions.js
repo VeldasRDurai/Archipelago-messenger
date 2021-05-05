@@ -1,11 +1,12 @@
 import { START_CHAT, UPDATE_OLD_CHAT, APPEND_NEW_CHAT, HE_IS_ONLINE, HE_IS_OFFLINE, TOGGLE_TYPING, END_CHAT } from './chatDetailsTypes';
 
-const startChatAction = ({ chattingWithEmail, chattingWithName, chattingWithId }) => {
+const startChatAction = ({ chattingWithEmail, chattingWithName, chattingWithId, chattingWithPicture }) => {
     return { 
         type : START_CHAT ,
         chattingWithEmail ,
         chattingWithName ,
-        chattingWithId
+        chattingWithId ,
+        chattingWithPicture
     }
 }
 const updateOldChatAction = ({ oldChat }) => {

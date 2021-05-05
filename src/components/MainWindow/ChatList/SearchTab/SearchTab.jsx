@@ -12,24 +12,26 @@ const Key = styled.div`
         right :20px;
         height:40px;
         width :40px;
-        background-color:green;
+        background-color:#075e55;
         color:white;
         border-radius:20px;
         display:flex;
         justify-content:center;
         align-items:center;
         font-size:40px;
+        z-index:9;
     }
 `;
 const Tab = styled.div`
     @media (max-width:425px) {
+        background-color:whitesmoke;
         overflow:hidden;
         height:100vh;
         width:100vw;
         position:absolute;
         top:0;
         left:0;
-        background-color:whitesmoke;
+        z-index:9;
     }
 `;
 

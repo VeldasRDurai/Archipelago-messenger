@@ -5,6 +5,7 @@ const initialState = {
     email  : '' ,
     name   : '' ,
     _id    : undefined ,
+    picture : ''
 }
 
 const userDetailsReducer = ( state = initialState , action ) => {
@@ -14,14 +15,16 @@ const userDetailsReducer = ( state = initialState , action ) => {
                 isloged : true,
                 email   : action.email,
                 name    : action.name,
-                _id     : action._id
+                _id     : action._id,
+                picture : action.picture
             }
         case LOGED_OUT : 
             return { ...state ,
                 isloged : false,
                 email   : '' ,
                 name    : '' ,
-                _id     : undefined 
+                _id     : undefined ,
+                picture : ''
             }
         default : 
             return state;

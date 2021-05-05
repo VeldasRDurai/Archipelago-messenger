@@ -21,7 +21,6 @@ const Div = styled.div`
 const ChattingContent = () => {
     const { oldChat } = useSelector( state => state.chatDetails );
     const refChatDiv = useRef();
-    // let currentDate = "";
     useEffect( () => {
         refChatDiv.current.scrollTop = refChatDiv.current.scrollHeight;
     });
@@ -41,12 +40,6 @@ const ChattingContent = () => {
                             <DateDiv date={item.messageTime} />
                         }
                         <SingleChat key={index} value={item} />
-                            {/* date={new Date(item.messageTime).toLocaleDateString()}
-                            time={new Date(item.messageTime).toLocaleTimeString()} 
-                            name={item.sendBy} 
-                            chat={item.message} 
-                            readed={item.readed}
-                            delivered={item.delivered} /> */}
                     </>
                 ) 
             }

@@ -2,6 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { useSelector } from 'react-redux';
 
+import LeftArrow from './Arrow/LeftArrow';
+import RightArrow from './Arrow/RightArrow';
 import SingleTick from "./Tick/SingleTick";
 import DoubleTick from "./Tick/DoubleTick";
 import BlueTick from "./Tick/BlueTick";
@@ -20,6 +22,7 @@ const Div = styled.div`
     overflow-wrap: break-word;
     display:flex;
     flex-direction:column;
+    position:relative;
     #name {
         font-size: 13px;
         font-weight: 600;
@@ -30,9 +33,13 @@ const Div = styled.div`
         display:flex;
         align-self:flex-end;
     }
+    #arrow{
+        position:absolute;
+
+    }
     ${ ({ hisMessage }) => hisMessage ? 
-        css`align-self:flex-start; background-color:white; #name{color:#217bec;}`:
-        css`align-self:flex-end; background-color:#dcf8c6; #name{color:#44d19e;}`
+        css`align-self:flex-start; border-top-left-radius:0; background-color:white; #name{color:#217bec;}`:
+        css`align-self:flex-end; border-top-right-radius:0; background-color:#dcf8c6; #name{color:#44d19e;}`
     };
 `
 
@@ -42,7 +49,15 @@ const SingleChat = ({ value }) => {
 
     return (
         <Div hisMessage={ sendBy === chattingWithEmail } >
-            <div id='name' > { sendBy === chattingWithEmail ? chattingWithName : 'You' }</div>
+            { sendBy === chattingWithEmail ? <LeftArrow /> : <RightArrow /> }
+            <div id='name' > 
+                { 
+                    sendBy === chattingWithEmail ?
+                        ( chattingWithName.length > 15 ? 
+                            chattingWithName.slice(0,11) + '...' : 
+                                chattingWithName ) : 'You' 
+                }   
+            </div>
             <div id='chat' > { message } </div>
             <div id='time-delivered' >
                 <div id='time' > { new Date(messageTime).toLocaleTimeString( [], {timeStyle: 'short'} ) } </div>

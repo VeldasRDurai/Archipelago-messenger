@@ -20,14 +20,15 @@ const Div = styled.div`
            height: 40px;
            width:40px;
            border-radius:20px;
-           background-color: rgb( ${Math.floor((Math.random()*255)+0)} , ${Math.floor((Math.random()*255)+0)} , ${Math.floor((Math.random()*255)+0)} );
+           /* background-color: rgb( ${Math.floor((Math.random()*255)+0)} , ${Math.floor((Math.random()*255)+0)} , ${Math.floor((Math.random()*255)+0)} ); */
         }
         #email-lastMsg {
             margin-left:10px;
-            width:65%;
+            width:60%;
+            white-space:nowrap;
             overflow:hidden;
             #email {
-                font-size:20px;
+                font-size:17px;
                 font-weight:900;
                 width:100%;
                 overflow:hidden;
@@ -72,18 +73,19 @@ const ListItem = ({ value }) => {
         first.getDate() === second.getDate();
         
         // email: name : id : lastSendBy : lastMessage : lastMessageTime :
-        // lastDelivered : lastReaded : unRead  :
+        // lastDelivered : lastReaded : unRead  : picture  :
 
     return(
         <Div onClick={ () => dispatch( startChatAction({ 
                 chattingWithEmail : value.email, 
                 chattingWithName : value.name,
-                chattingWithId : value.id 
+                chattingWithId : value.id,
+                chattingWithPicture : value.picture 
             }) )}
             unRead={value.unRead} >
                 
 
-            <div id='image'> </div>
+            <img id='image' src={ value.picture } alt='profile picture' />
             <div id='email-lastMsg' > 
                 <div id='email'> 
                     {

@@ -59,6 +59,7 @@ const ChattingKeyboard = () => {
         socket.emit( 'send-message' , { email, name, _id, chattingWithEmail, chattingWithName, chattingWithId, message } );
         dispatch( appendNewChatAction({ newChat: { sendBy:email , message:message , messageTime: new Date() } }) );
         refInput.current.value = '';
+        setMessage('');
     }
 
     return(

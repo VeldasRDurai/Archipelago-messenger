@@ -16,7 +16,6 @@ const Div = styled.div`
         position:absolute;
         top:0;
         left:0;
-        /* background-color:yellow; */
         display:flex;
         flex-direction:column;
     }

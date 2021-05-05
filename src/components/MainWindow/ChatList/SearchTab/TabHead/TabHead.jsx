@@ -11,7 +11,7 @@ const Div = styled.div`
         box-sizing:border-box;
         padding:0 18px;
         font-size:18px;
-        background-color:#107050;
+        background-color:#075e55;
         color:white;
         display:flex;
         flex-direction:row;
