@@ -9,6 +9,7 @@ import SearchTab from './SearchTab/SearchTab';
 import Chatting from './Chatting/Chatting';
 import TapHere from './TapHere/TapHere';
 
+import { newAboutAction } from '../../../redux/userDetails/userDetailsActions';
 import { updateOldChatAction, heIsOnlineAction, heIsOfflineAction, toggleTypingAction } from '../../../redux/chatDetails/chatDetailsActions';
 import { updateSearchResultAction } from '../../../redux/search/searchActions'
 import { updateSocket }  from '../../../redux/socket/socketActions';
@@ -47,6 +48,7 @@ const ChatList = () => {
             dispatch( heIsOfflineAction({ lastSeen }) ) ;
         });
         socket.on('toggle-typing', ({isTyping}) => dispatch( toggleTypingAction({ isTyping }) ));
+        socket.on('updated-about', ({ newAbout }) => dispatch( newAboutAction({ newAbout }) ));
         socket.on('set-history' , ({ history }) => {
             console.log( history );
             setHistory( history );
@@ -55,18 +57,15 @@ const ChatList = () => {
 
     return (
         <Div>
+            <ListHeader />
             {
-                !isChatting ? 
-                    <>
-                        <ListHeader />
-                        {
-                            history.map( ( item , index ) => { 
-                                return <ListItem key={index} value={item} /> ;
-                            })
-                        } 
-                        <SearchTab />
-                    </>:
-                    <Chatting />
+                history.map( ( item , index ) => { 
+                    return <ListItem key={index} value={item} /> ;
+                })
+            } 
+            <SearchTab />
+            {
+                isChatting && <Chatting />
             }
             <TapHere />
         </Div>

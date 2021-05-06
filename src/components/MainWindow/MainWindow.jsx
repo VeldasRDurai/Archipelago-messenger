@@ -19,9 +19,10 @@ const MainWindow = () => {
             try {
                 const res = await fetch( "http://localhost:4000/" , { credentials: 'include' });
                 if( res.status === 200 ){
-                    let { email, name, _id, picture } = await res.json();
-                    console.log( 'email : ', email, ' name : ', name, '_id : ' , _id, 'picture',picture );
-                    dispatch( logedInAction({ email, name, _id, picture }) );
+                    let details = await res.json();
+                    const { email, name, _id, picture, about } = details;
+                    console.log( 'email : ', email, ' name : ', name, '_id : ' , _id, 'picture : ', picture, 'about : ', about );
+                    dispatch( logedInAction({ email, name, _id, picture, about }) );
                 } else {
                     console.log(res);
                     history.push('/sign-in');

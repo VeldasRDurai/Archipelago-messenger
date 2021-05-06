@@ -6,6 +6,7 @@ import Name from './Name';
 import About from './About';
 import Email from './Email';
 import ProfileTile from './ProfileTile/ProfileTile';
+import AboutTile from './AboutTile/AboutTile';
 
 const Div = styled.div`
     @media (max-width:425px) {
@@ -21,17 +22,19 @@ const Div = styled.div`
             width:150px;
             border-radius:75px;
             background-color:#075e55;
+            box-shadow: 0 0 5px 0px #666;
         }        
     }
 `;
 
 const ProfileContent = () => {
-    const { email, name, picture } = useSelector( state => state.userDetails );
+    const { email, name, picture, about } = useSelector( state => state.userDetails );
     return (
         <Div>
             <img id='image' src={ picture } alt="profile-Pic"/>
             <ProfileTile heading={'Name'} value={name} Logo={Name} />
-            <ProfileTile heading={'About'} value={"Hey there I'm using archipelago"} Logo={About} />
+            {/* <ProfileTile heading={'About'} value={"Hey there I'm using archipelago"} Logo={About} /> */}
+            <AboutTile value={ about } Logo={About} />
             <ProfileTile heading={'Email'} value={email} Logo={Email} />
         </Div>
     )

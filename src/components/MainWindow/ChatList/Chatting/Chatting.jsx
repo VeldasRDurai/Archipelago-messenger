@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-
-import { appendNewChatAction } from '../../../../redux/chatDetails/chatDetailsActions';
-import { endChatAction } from '../../../../redux/chatDetails/chatDetailsActions';
 
 import ChattingHead from './ChattingHead/ChattingHead';
 import ChattingContent from './ChattingContent/ChattingContent';
@@ -14,48 +11,35 @@ const Div = styled.div`
         height:100vh;
         width:100vw;
         position:absolute;
-        top:0;
         left:0;
         display:flex;
         flex-direction:column;
+        background-color:#e5ddd5;
+        animation: chatOut 0.2s linear alternate both;
+        z-index:9;
+
+        @keyframes chatOut {
+            from {top:100vh;}
+            to {top:0;}
+        }
     }
 `;
 
 const Chatting = () => {
     const { email, name, _id } = useSelector( state => state.userDetails );
-    const { chattingWithEmail, chattingWithName, chattingWithId, oldChat } = useSelector( state => state.chatDetails );
+    const { chattingWithEmail, chattingWithName, chattingWithId } = useSelector( state => state.chatDetails );
     const { socket } = useSelector( state => state.socket );
-    const dispatch = useDispatch();
     
-    const [ message , setMessage ] = useState('');
-
     useEffect( () => {
         socket.emit('start-chat', { email, name, _id, chattingWithEmail, chattingWithName, chattingWithId });
     },[]);
 
-    const sendMsg = () => {
-        socket.emit( 'send-message' , { email:email , with:chattingWithEmail , message:message} );
-        dispatch( appendNewChatAction({ newChat: { sendBy:email , msg:message , msgTime: new Date() } }) );
-    }
-    const goBack = () => {
-        dispatch( endChatAction() );
-        socket.emit('end-chat', { email, name, _id } );
-        socket.emit('get-history', { email, name, _id } );
-    }
     return(
         <Div>
             <ChattingHead />
-            <div style={{ display:'none' }} >
-                <div onClick={ () => goBack() } > back </div>
-                Chatting with { chattingWithEmail }
-                <input type="text" onChange={ e => setMessage(e.target.value) } />
-                <button onClick={()=>sendMsg()} > send </button>
-                <div>
-                    this
-                    { oldChat.map( item => <div> { item.sendBy + ' :- ' + item.msg} </div> ) }
-                </div>
-            </div>
+            <div style={{height:'13%'}} ></div>
             <ChattingContent />
+            <div style={{height:'9%'}} ></div>
             <ChattingKeyboard />
         </Div>
     );

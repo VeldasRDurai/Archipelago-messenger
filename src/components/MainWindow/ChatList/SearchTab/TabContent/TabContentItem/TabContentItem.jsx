@@ -52,14 +52,15 @@ const TabContentItem = ({ value }) => {
 
     const index = () => value.email.indexOf(searchText) ;
 
-    // [ 'email', 'name', '_id', picture ], 
+    // [ 'email', 'name', '_id', picture, about ], 
 
     return(
         <Div onClick={ () => dispatch( startChatAction({ 
                 chattingWithEmail : value.email , 
                 chattingWithName : value.name ,
                 chattingWithId : value._id ,
-                chattingWithPicture : value.picture
+                chattingWithPicture : value.picture ,
+                chattingWithAbout : value.about
             }) )} >
             <img id="image" src={ value.picture } alt='profile-picture' />
             <div id="name-email">

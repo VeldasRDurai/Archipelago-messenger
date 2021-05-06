@@ -7,11 +7,16 @@ import ProfileContent from './ProfileContent/ProfileContent';
 const Div = styled.div`
     position:absolute;
     top:0;
-    left:0;
     z-index:12;
-    height:100%;
-    width:100%;
+    height:100vh;
+    width:100vw;
     background-color:white;
+    animation: profileOut 0.2s linear alternate both;
+
+    @keyframes profileOut {
+        from {left:100vw;}
+        to {left:0;}
+    }
 `;
 
 const Profile = ({ setShowProfile }) => {

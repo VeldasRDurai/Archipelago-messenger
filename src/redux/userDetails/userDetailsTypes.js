@@ -1,4 +1,5 @@
 const LOGED_IN = 'LOGED_IN';
+const NEW_ABOUT = 'NEW_ABOUT';
 const LOGED_OUT = 'LOGED_OUT';
  
-export { LOGED_IN , LOGED_OUT };
+export { LOGED_IN, NEW_ABOUT, LOGED_OUT };

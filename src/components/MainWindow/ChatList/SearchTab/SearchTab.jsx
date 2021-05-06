@@ -19,7 +19,7 @@ const Key = styled.div`
         justify-content:center;
         align-items:center;
         font-size:40px;
-        z-index:9;
+        z-index:8;
     }
 `;
 const Tab = styled.div`
@@ -29,9 +29,13 @@ const Tab = styled.div`
         height:100vh;
         width:100vw;
         position:absolute;
-        top:0;
-        left:0;
-        z-index:9;
+        z-index:8;
+        animation: tabOut 0.2s linear alternate both;
+
+        @keyframes tabOut {
+            from {left:100vw;top:100vh;}
+            to {left:0;top:0;}
+        }
     }
 `;
 

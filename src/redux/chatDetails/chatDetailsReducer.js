@@ -6,6 +6,7 @@ const initialState = {
     chattingWithName : '',
     chattingWithId : '', 
     chattingWithPicture : '',
+    chattingWithAbout : '',
     isTyping : false ,
     oldChat : [] ,
     online : undefined ,
@@ -20,7 +21,8 @@ const chatDetailsReducer = ( state = initialState , action ) => {
                 chattingWithEmail : action.chattingWithEmail,
                 chattingWithName : action.chattingWithName,
                 chattingWithId : action.chattingWithId,
-                chattingWithPicture : action.chattingWithPicture
+                chattingWithPicture : action.chattingWithPicture,
+                chattingWithAbout : action.chattingWithAbout,
             };
         case UPDATE_OLD_CHAT :
             return { ...state ,
@@ -51,6 +53,7 @@ const chatDetailsReducer = ( state = initialState , action ) => {
                 chattingWithName : '',
                 chattingWithId : '', 
                 chattingWithPicture : '',
+                chattingWithAbout : '',
                 isTyping : false ,
                 oldChat : [] ,
                 online : undefined ,

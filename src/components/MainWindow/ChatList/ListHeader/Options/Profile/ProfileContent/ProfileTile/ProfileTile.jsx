@@ -17,20 +17,25 @@ const Div = styled.div`
             }
             #content-2{
                 color:black;
-                font-size:16px;
+                font-size:14px;
+                word-break:break-all;
+                font-family: 'Chilanka', cursive;
+                font-weight:900;
             }
         }
     }
 `;
 
-export default function ProfileTile({ heading, value, Logo }) {
+const ProfileTile = ({ heading, value, Logo }) => {
     return (
         <Div>
             <Logo />
             <div id="content" >
-                <div id="content-1" > {heading} </div>
-                <div id="content-2" > {value} </div>
+                <div id="content-1" > { heading }</div>
+                <div id="content-2" > { value } </div>
             </div>
         </Div>
     )
 }
+
+export default ProfileTile;

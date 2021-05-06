@@ -23,6 +23,7 @@ const Div = styled.div`
             /* font-family: 'Caveat', cursive; */
             /* font-family: 'Jomhuria', cursive; */
             /* font-family: 'Varela', sans-serif; */
+            /* font-family: 'Chilanka', cursive; */
         }
         #version, #copyright {
             font-size:12px;

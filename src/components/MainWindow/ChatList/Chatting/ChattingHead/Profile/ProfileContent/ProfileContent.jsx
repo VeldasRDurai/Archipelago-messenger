@@ -21,18 +21,19 @@ const Div = styled.div`
             width:150px;
             border-radius:75px;
             background-color:#075e55;
+            box-shadow: 0 0 5px 0px #666;
         }        
     }
 `;
 
 const ProfileContent = () => {
-    const { chattingWithPicture, chattingWithEmail, chattingWithName} = useSelector( state => state.chatDetails );
+    const { chattingWithPicture, chattingWithEmail, chattingWithName, chattingWithAbout} = useSelector( state => state.chatDetails );
     
     return (
         <Div>
             <img id='profile-pic' src={ chattingWithPicture } alt="profile-Pic"/>
-            <ProfileTile heading={'Name'} value={ chattingWithName } Logo={Name} />
-            <ProfileTile heading={'About'} value={"Hey there I'm using archipelago"} Logo={About} />
+            <ProfileTile heading={'Name'}  value={ chattingWithName  } Logo={Name} />
+            <ProfileTile heading={'About'} value={ chattingWithAbout } Logo={About} />
             <ProfileTile heading={'Email'} value={ chattingWithEmail } Logo={Email} />
         </Div>
     )

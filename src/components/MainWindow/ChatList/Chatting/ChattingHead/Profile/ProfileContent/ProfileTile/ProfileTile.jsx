@@ -13,10 +13,15 @@ const Div = styled.div`
             border-bottom:1px solid #0008;
             #content-1{
                 color:#0008;
-                font-size:15px;
+                font-size:15px; 
             }
             #content-2{
-                font-size:16px;
+                /* font-family: 'Balsamiq Sans'; */
+                font-family: 'Chilanka', cursive;
+                font-weight:900;
+                color:black;
+                font-size:14px;
+                word-break:break-all;
             }
         }
     }

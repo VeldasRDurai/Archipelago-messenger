@@ -6,9 +6,11 @@ import { appendNewChatAction } from '../../../../../redux/chatDetails/chatDetail
 
 const Div = styled.div`
     @media (max-width:425px) {
-        margin-top: auto;
+        position:absolute;
+        bottom:0;
         background-color:#e5ddd5;
-        height: 8%;
+        height: 45px;
+        width:100%;
         display: flex;
         justify-content:center;
         align-items: center;

@@ -73,14 +73,15 @@ const ListItem = ({ value }) => {
         first.getDate() === second.getDate();
         
         // email: name : id : lastSendBy : lastMessage : lastMessageTime :
-        // lastDelivered : lastReaded : unRead  : picture  :
+        // lastDelivered : lastReaded : unRead  : picture  : about
 
     return(
         <Div onClick={ () => dispatch( startChatAction({ 
                 chattingWithEmail : value.email, 
                 chattingWithName : value.name,
                 chattingWithId : value.id,
-                chattingWithPicture : value.picture 
+                chattingWithPicture : value.picture ,
+                chattingWithAbout : value.about
             }) )}
             unRead={value.unRead} >
                 
@@ -89,13 +90,15 @@ const ListItem = ({ value }) => {
             <div id='email-lastMsg' > 
                 <div id='email'> 
                     {
-                        value.name.length < 15 ? value.name : value.name.slice(0,15) + '...'
+                        // value.name.length < 15 ? value.name : value.name.slice(0,15) + '...'
+                        value.name
                     }
                 </div>
                 <div id='lastMsg'> 
                     {
                         ( value.lastSendBy === email ? 'you' : value.name ) + " : " + 
-                        ( value.lastMessage.length < 25 ? value.lastMessage : value.lastMessage.slice(0,24) + '...')
+                        // ( value.lastMessage.length < 25 ? value.lastMessage : value.lastMessage.slice(0,24) + '...')
+                        value.lastMessage
                     } 
                 </div>   
             </div>

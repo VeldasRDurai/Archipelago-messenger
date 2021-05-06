@@ -8,12 +8,15 @@ import { endChatAction } from '../../../../../redux/chatDetails/chatDetailsActio
 
 const Div = styled.div`
     @media (max-width:425px) {
-        overflow:hidden;
-        height:13%;
+        /* overflow:hidden; */
+        height:65px;
+        width:100%;
+        position:absolute;
+        z-index:10;
+        top:0px;
         box-sizing:border-box;
         padding:0 8px;
         box-shadow:0px 0px 5px 0px #333;
-        /* background-image: linear-gradient( 223deg, #00d890, #075e55 90% ); */
         background-color:#075e54;
         display:flex;
         flex-direction:row;
@@ -26,11 +29,23 @@ const Div = styled.div`
         #chatting-with{
             color:white;
             margin-left:8px;
-            width:80%;
+            width:60%;
             overflow:hidden;
             #online {
                 font-family:'fangsong';
                 font-size:14px;
+                height:15px;
+                position:relative;
+                #lastSeen {
+                    position:absolute;
+                    animation: scrollLastSeen 12s cubic-bezier(0, 1.07, 1, 0.4) both;
+                    animation-iteration-count: 2;
+                    @keyframes scrollLastSeen {
+                        0% {left:100%;}
+                        99%{left:-100%;}
+                        100%{ left:-35%; }
+                    }
+                }
             }
             #name{
                 font-family: 'Merienda One', cursive;
@@ -70,13 +85,23 @@ const ChattingHead = () => {
             </svg>
             <img id='image' onClick={ () => setShowProfile(true) } src={ chattingWithPicture } alt="profile pic" />
             <div id="chatting-with"  onClick={ () => setShowProfile(true) } > 
-                <div id='name' > { chattingWithName.length > 15 ? chattingWithName.slice(0,11) + '...' : chattingWithName } </div>
+                <div id='name' > 
+                    { 
+                        chattingWithName.length > 20 ? 
+                            chattingWithName.slice(0,16) + '...' : 
+                            chattingWithName 
+                    } 
+                </div>
                 <div id='online'>
                     {
                         isTyping ? 'typing ...' :
                         online === undefined ? 'loading...':
                         online ? 'online':
-                        `last seen ${ datesAreOnSameDay(new Date(),new Date(lastSeen)) ? 'today': new Date(lastSeen).toLocaleDateString('pt-PT') } at ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }`
+                        <div id='lastSeen' > 
+                            {
+                                `last seen ${ datesAreOnSameDay(new Date(),new Date(lastSeen)) ? 'today': new Date(lastSeen).toLocaleDateString('pt-PT') } at ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }`
+                            }
+                        </div>
                     }
                 </div>
             </div>
