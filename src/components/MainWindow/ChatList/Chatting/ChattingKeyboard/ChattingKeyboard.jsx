@@ -49,11 +49,11 @@ const ChattingKeyboard = () => {
     useEffect(() => {
         if( message !== '' && !imTyping ){
             setImTyping(true);
-            socket.emit('typing',{ isTyping:true, chattingWithEmail, email });
+            socket.emit('typing',{ isTyping:true, chattingWithEmail, email, _id });
         } 
         if( message === '' && imTyping  ){
             setImTyping(false);
-            socket.emit('typing',{ isTyping:false, chattingWithEmail, email });
+            socket.emit('typing',{ isTyping:false, chattingWithEmail, email, _id });
         } 
     }, [ message ])
 

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useSelector } from 'react-redux';
 
+import ChatInfo from './ChatInfo/ChatInfo';
 import LeftArrow from './Arrow/LeftArrow';
 import RightArrow from './Arrow/RightArrow';
 import SingleTick from "./Tick/SingleTick";
@@ -47,30 +48,39 @@ const SingleChat = ({ value }) => {
     const { chattingWithEmail, chattingWithName } = useSelector( state => state.chatDetails );
     const { delivered, message, messageTime, readed, sendBy } = value;
 
+    const [ showChatInfo, setShowChatInfo ] = useState(false);
+
     return (
-        <Div hisMessage={ sendBy === chattingWithEmail } >
-            { sendBy === chattingWithEmail ? <LeftArrow /> : <RightArrow /> }
-            <div id='name' > 
-                { 
-                    sendBy === chattingWithEmail ?
-                        ( chattingWithName.length > 15 ? 
-                            chattingWithName.slice(0,11) + '...' : 
-                                chattingWithName ) : 'You' 
-                }   
-            </div>
-            <div id='chat' > { message } </div>
-            <div id='time-delivered' >
-                <div id='time' > { new Date(messageTime).toLocaleTimeString( [], {timeStyle: 'short'} ) } </div>
-                <div id='delivered'>
-                    {
-                        sendBy === chattingWithEmail ? null :
-                            !delivered ? <SingleTick /> :
-                                !readed ? <DoubleTick /> :
-                                    <BlueTick />
-                    }
+        <>
+            <Div onClick={ () => setShowChatInfo(true) } hisMessage={ sendBy === chattingWithEmail }>
+                { sendBy === chattingWithEmail ? <LeftArrow /> : <RightArrow /> }
+                <div id='name' > 
+                    { 
+                        sendBy === chattingWithEmail ?
+                            ( chattingWithName.length > 15 ? 
+                                chattingWithName.slice(0,11) + '...' : 
+                                    chattingWithName ) : 'You' 
+                    }   
                 </div>
-            </div>
-        </Div>
+                <div id='chat' > { message } </div>
+                <div id='time-delivered' >
+                    <div id='time' > { new Date(messageTime).toLocaleTimeString( [], {timeStyle: 'short'} ) } </div>
+                    <div id='delivered'>
+                        {
+                            sendBy === chattingWithEmail ? null :
+                                !delivered ? <SingleTick /> :
+                                    !readed ? <DoubleTick /> :
+                                        <BlueTick />
+                        }
+                    </div>
+                </div>
+                
+            </Div>
+            {  
+                showChatInfo && 
+                    <ChatInfo setShowChatInfo={setShowChatInfo} showChatInfo={showChatInfo} value={value} /> 
+            }
+        </>
     );
 }
 

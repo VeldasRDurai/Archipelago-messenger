@@ -33,6 +33,7 @@ const Div = styled.div`
 `;
 
 const TabHead = ({ setTabOpened }) => {
+    const { _id } = useSelector( state => state.userDetails );
     const { socket } = useSelector( state => state.socket );
     const { searchText } = useSelector( state => state.search );
     const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const TabHead = ({ setTabOpened }) => {
     
     useEffect( () => {
         if(searchText){
-            socket.emit( 'search' , { searchText } );
+            socket.emit( 'search' , { searchText, _id } );
             console.log('search tab');
         }        
     } , [ searchText ] );

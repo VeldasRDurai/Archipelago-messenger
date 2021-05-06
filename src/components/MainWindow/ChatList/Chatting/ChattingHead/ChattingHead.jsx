@@ -63,7 +63,7 @@ const ChattingHead = () => {
     
     const goBack = () => {
         dispatch( endChatAction() );
-        socket.emit('end-chat');
+        socket.emit('end-chat',{ _id, chattingWithEmail });
         socket.emit('typing',{ isTyping:false, chattingWithEmail, email });
         socket.emit('get-history', { _id } );
     }
