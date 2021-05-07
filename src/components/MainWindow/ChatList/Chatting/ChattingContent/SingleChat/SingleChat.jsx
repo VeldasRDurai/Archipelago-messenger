@@ -42,6 +42,9 @@ const Div = styled.div`
         css`align-self:flex-start; border-top-left-radius:0; background-color:white; #name{color:#217bec;}`:
         css`align-self:flex-end; border-top-right-radius:0; background-color:#dcf8c6; #name{color:#44d19e;}`
     };
+    ${ ({showChatInfo}) => showChatInfo && 
+        css`background-color:#075e54;color:white;`
+    };
 `
 
 const SingleChat = ({ value }) => {
@@ -50,16 +53,22 @@ const SingleChat = ({ value }) => {
 
     const [ showChatInfo, setShowChatInfo ] = useState(false);
 
+    const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
     return (
         <>
-            <Div onClick={ () => setShowChatInfo(true) } hisMessage={ sendBy === chattingWithEmail }>
-                { sendBy === chattingWithEmail ? <LeftArrow /> : <RightArrow /> }
+            <Div showChatInfo={showChatInfo} onClick={ () => setShowChatInfo(true) } hisMessage={ sendBy === chattingWithEmail }>
+                {
+                    sendBy === chattingWithEmail ? 
+                        <LeftArrow showChatInfo={showChatInfo} /> : 
+                        <RightArrow showChatInfo={showChatInfo} /> 
+                }
                 <div id='name' > 
                     { 
                         sendBy === chattingWithEmail ?
-                            ( chattingWithName.length > 15 ? 
-                                chattingWithName.slice(0,11) + '...' : 
-                                    chattingWithName ) : 'You' 
+                            ( chattingWithName.length > 20 ? 
+                                capitalize( `${chattingWithName.slice(0,17)} ...`) : 
+                                    capitalize(chattingWithName))  : 'You' 
                     }   
                 </div>
                 <div id='chat' > { message } </div>

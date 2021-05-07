@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -23,15 +23,11 @@ const Div = styled.div`
 `;
 
 function App() {
-  const refDiv = useRef();
-  useEffect(() => {
-    refDiv.current.scrollTop = refDiv.current.scrollHeight;
-  });
 
   return (
     <Provider store={store}>
       <Router>
-        <Div ref={ refDiv } >
+        <Div>
           <Switch>
 
             <Route path='/' exact > <MainWindow /></Route>

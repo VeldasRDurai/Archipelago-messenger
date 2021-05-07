@@ -7,7 +7,7 @@ import { updateSearchTextAction } from '../../../../../redux/search/searchAction
 const Div = styled.div`
     @media (max-width:425px) {
         overflow:hidden;
-        height:10%;
+        height:65px;
         box-sizing:border-box;
         padding:0 18px;
         font-size:18px;

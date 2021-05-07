@@ -15,6 +15,7 @@ const Div = styled.div`
         background-color:#e5ddd5;
         display:flex;
         flex-direction:column;
+        flex-flow:column-reverse;
     }
 `;
 
@@ -33,13 +34,14 @@ const ChattingContent = () => {
             {
                 oldChat.map( (item,index) =>  
                     <>
-                        {
-                            index !== 0 ?
-                            !datesAreOnSameDay( new Date(item.messageTime) , new Date( oldChat[index-1].messageTime )) &&
-                                <DateDiv date={item.messageTime} /> :
-                            <DateDiv date={item.messageTime} />
-                        }
                         <SingleChat key={index} value={item} />
+                        {
+                            index !== 0 &&
+                            ( index === oldChat.length - 1 ?
+                                <DateDiv date={item.messageTime} /> :
+                                !datesAreOnSameDay( new Date(item.messageTime) , new Date( oldChat[index-1].messageTime )) && 
+                                <DateDiv date={oldChat[index-1].messageTime} /> )
+                        }
                     </>
                 ) 
             }

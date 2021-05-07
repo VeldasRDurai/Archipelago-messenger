@@ -72,6 +72,8 @@ const ListItem = ({ value }) => {
         first.getMonth() === second.getMonth() &&
         first.getDate() === second.getDate();
         
+    const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
         // email: name : id : lastSendBy : lastMessage : lastMessageTime :
         // lastDelivered : lastReaded : unRead  : picture  : about
 
@@ -90,15 +92,12 @@ const ListItem = ({ value }) => {
             <div id='email-lastMsg' > 
                 <div id='email'> 
                     {
-                        // value.name.length < 15 ? value.name : value.name.slice(0,15) + '...'
-                        value.name
+                        capitalize(value.name)
                     }
                 </div>
                 <div id='lastMsg'> 
                     {
-                        ( value.lastSendBy === email ? 'you' : value.name ) + " : " + 
-                        // ( value.lastMessage.length < 25 ? value.lastMessage : value.lastMessage.slice(0,24) + '...')
-                        value.lastMessage
+                        `${ value.lastSendBy === email ? 'You' : capitalize(value.name) } : ${value.lastMessage}`
                     } 
                 </div>   
             </div>

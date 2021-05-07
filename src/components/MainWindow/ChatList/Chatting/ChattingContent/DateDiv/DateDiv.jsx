@@ -18,11 +18,17 @@ const DateDiv = ({ date }) => {
         first.getMonth() === second.getMonth() &&
         first.getDate() === second.getDate();
 
+    const datesAreConsecutive = (first, second) =>
+        first.getFullYear() === second.getFullYear() &&
+        first.getMonth() === second.getMonth() &&
+        Math.abs( first.getDate() - second.getDate() ) === 1 ;
+        
     return ( 
         <Div>
             {
-                datesAreOnSameDay( new Date(), new Date(date) ) ?
-                    'Today': new Date(date).toLocaleDateString('pt-PT') 
+                datesAreOnSameDay( new Date(), new Date(date) ) ? 'Today':
+                    datesAreConsecutive( new Date(), new Date(date) ) ? 'Yesterday':
+                        new Date(date).toLocaleDateString( undefined,{ year: 'numeric', month: 'long', day: 'numeric'} ) 
             }
         </Div>
     );

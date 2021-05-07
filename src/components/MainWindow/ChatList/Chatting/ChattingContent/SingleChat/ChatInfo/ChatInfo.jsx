@@ -38,15 +38,33 @@ const ChatInfo = ({ showChatInfo, setShowChatInfo, value }) => {
             <Box>
                 <div>
                     <div> <BlueTick /> Read </div>
-                    <div> {new Date(value.readedTime).toLocaleString()} </div>
+                    <div> 
+                        {
+                            new Date(value.readedTime).toLocaleString( undefined, {
+                                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' 
+                            })
+                        } 
+                    </div>
                 </div>
                 <div>
                     <div> <DoubleTick /> Delivered </div>
-                    <div> {new Date(value.deliveredTime).toLocaleString()} </div>
+                    <div> 
+                        {
+                            new Date(value.deliveredTime).toLocaleString( undefined, {
+                                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
+                            })
+                        } 
+                    </div>
                 </div>
                 <div>
                     <div> <SingleTick /> Sent at </div>
-                    <div> {new Date(value.messageTime).toLocaleString()} </div>
+                    <div> 
+                        {
+                            new Date(value.messageTime).toLocaleString( undefined, {
+                                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' 
+                            })
+                        } 
+                    </div>
                 </div>
             </Box>
         </Div>

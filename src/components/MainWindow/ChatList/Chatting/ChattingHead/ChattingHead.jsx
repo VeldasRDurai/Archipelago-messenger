@@ -72,6 +72,10 @@ const ChattingHead = () => {
         first.getFullYear() === second.getFullYear() &&
         first.getMonth() === second.getMonth() &&
         first.getDate() === second.getDate();
+    const datesAreConsecutive = (first, second) =>
+        first.getFullYear() === second.getFullYear() &&
+        first.getMonth() === second.getMonth() &&
+        Math.abs( first.getDate() - second.getDate() ) === 1 ;
 
     const [ showProfile, setShowProfile ] = useState(false);
 
@@ -99,7 +103,10 @@ const ChattingHead = () => {
                         online ? 'online':
                         <div id='lastSeen' > 
                             {
-                                `last seen ${ datesAreOnSameDay(new Date(),new Date(lastSeen)) ? 'today': new Date(lastSeen).toLocaleDateString('pt-PT') } at ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }`
+                                `last seen ${ datesAreOnSameDay(new Date(),new Date(lastSeen)) ? 'today':
+                                    datesAreConsecutive(new Date(),new Date(lastSeen)) ? 'yesterday': 
+                                        new Date(lastSeen).toLocaleDateString(undefined,{ year: 'numeric', month: 'long', day: 'numeric'}) } at 
+                                        ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }`
                             }
                         </div>
                     }
