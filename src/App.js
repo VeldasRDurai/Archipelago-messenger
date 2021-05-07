@@ -6,8 +6,6 @@ import { BrowserRouter as Router, Switch , Route } from 'react-router-dom';
 
 import MainWindow from "./components/MainWindow/MainWindow";
 import SignIn from "./components/SignIn/SignIn";
-import LogIn from "./components/LogIn/LogIn";
-import SignUp from "./components/SignUp/SignUp";
 
 const Div = styled.div`
   @media (max-width:425px) {
