@@ -32,8 +32,6 @@ function App() {
 
             <Route path='/' exact > <MainWindow /></Route>
             <Route path='/sign-in'> <SignIn />    </Route>
-            <Route path='/log-in' > <LogIn />     </Route>
-            <Route path='/sign-up'> <SignUp />    </Route>
 
           </Switch>
         </Div>

@@ -54,7 +54,7 @@ const Options = ({ setShowOptions }) => {
 
     const logOut = async () => {
         try{
-            const data = await fetch( "http://localhost:4000/log-out" , { credentials: 'include' });
+            const data = await fetch( "https://archipelago-messenger-backend.herokuapp.com/log-out" , { credentials: 'include' });
             if( data.status === 200 ) {
                 dispatch( logedOutAction() );
                 socket.disconnect();
@@ -72,7 +72,7 @@ const Options = ({ setShowOptions }) => {
                 <div onClick={ (e) => {setShowProfile(true);e.stopPropagation();console.log('clicked');} } >
                     <div> Profile </div>
                 </div>
-                <div onClick={ () => window.open('http://stackoverflow.com', '_blank') } > <div> Report Bug </div> </div>
+                <div onClick={ () => window.open('https://github.com/VeldasRDurai/Archipelago-messenger/issues', '_blank') } > <div> Report Bug </div> </div>
                 {/* <div> <div> Buy me a coffee </div> </div> */}
                 <div onClick={ logOut } ><div> Log out </div></div>
             </Box>
