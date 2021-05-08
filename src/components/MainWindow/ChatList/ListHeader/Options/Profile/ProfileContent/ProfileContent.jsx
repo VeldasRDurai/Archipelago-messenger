@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -7,6 +7,9 @@ import About from './About';
 import Email from './Email';
 import ProfileTile from './ProfileTile/ProfileTile';
 import AboutTile from './AboutTile/AboutTile';
+
+// imported not from sub folder**
+import ProfilePicture from '../../../../ListItem/ProfilePicture/ProfilePicture';
 
 const Div = styled.div`
     @media (max-width:425px) {
@@ -29,13 +32,16 @@ const Div = styled.div`
 
 const ProfileContent = () => {
     const { email, name, picture, about } = useSelector( state => state.userDetails );
+    const [ showDp, setShowDp ] = useState(false);
+    const [ clickEvent, setClickEvent ] = useState({});
     return (
         <Div>
-            <img id='image' src={ picture } alt="profile-Pic"/>
+            <img id='image' src={ picture } alt="profile-Pic"
+                onClick={ e => { setShowDp(true); e.stopPropagation();setClickEvent(e); } } />
             <ProfileTile heading={'Name'} value={name} Logo={Name} />
-            {/* <ProfileTile heading={'About'} value={"Hey there I'm using archipelago"} Logo={About} /> */}
             <AboutTile value={ about } Logo={About} />
             <ProfileTile heading={'Email'} value={email} Logo={Email} />
+            { showDp && <ProfilePicture setShowDp={setShowDp} picture={picture} clickEvent={clickEvent} /> } 
         </Div>
     )
 }

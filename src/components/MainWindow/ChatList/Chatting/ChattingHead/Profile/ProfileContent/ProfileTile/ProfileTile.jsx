@@ -10,13 +10,12 @@ const Div = styled.div`
             margin-left:20px;
             width:80%;
             box-sizing:border-box;
-            border-bottom:1px solid #0008;
+            border-bottom:1px solid #0002;
             #content-1{
                 color:#0008;
                 font-size:15px; 
             }
             #content-2{
-                /* font-family: 'Balsamiq Sans'; */
                 font-family: 'Chilanka', cursive;
                 font-weight:900;
                 color:black;

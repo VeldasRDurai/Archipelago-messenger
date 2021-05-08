@@ -46,7 +46,7 @@ const SignIn = () => {
     async function onSuccess(googleUser) {
         var id_token = await googleUser.getAuthResponse().id_token;
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://archipelago-messenger-backend.herokuapp.com/sign-in');
+        xhr.open('POST', 'http://localhost:4000/sign-in');
         xhr.withCredentials = true;
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function() {

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { startChatAction } from '../../../../redux/chatDetails/chatDetailsActions' ;
+
+import ProfilePicture from './ProfilePicture/ProfilePicture';
 
 const Div = styled.div`
     @media (max-width:425px) {
@@ -66,6 +68,8 @@ const Div = styled.div`
 const ListItem = ({ value }) => {
     const { email } = useSelector( state => state.userDetails );
     const dispatch = useDispatch();
+    const [ showDp, setShowDp ] = useState(false);
+    const [ clickEvent, setClickEvent ] = useState({});
 
     const datesAreOnSameDay = (first, second) =>
         first.getFullYear() === second.getFullYear() &&
@@ -78,6 +82,7 @@ const ListItem = ({ value }) => {
         // lastDelivered : lastReaded : unRead  : picture  : about
 
     return(
+
         <Div onClick={ () => dispatch( startChatAction({ 
                 chattingWithEmail : value.email, 
                 chattingWithName : value.name,
@@ -88,7 +93,8 @@ const ListItem = ({ value }) => {
             unRead={value.unRead} >
                 
 
-            <img id='image' src={ value.picture } alt='profile picture' />
+            <img id='image' src={ value.picture } alt='profile picture'
+                onClick={ e => { setShowDp(true); e.stopPropagation();setClickEvent(e); } } />
             <div id='email-lastMsg' > 
                 <div id='email'> 
                     {
@@ -105,12 +111,13 @@ const ListItem = ({ value }) => {
                 <div id='lastMsgTime'> 
                     { 
                         datesAreOnSameDay(new Date(), new Date(value.lastMessageTime)) ? 
-                            new Date(value.lastMessageTime).toLocaleTimeString( [], {timeStyle: 'short'} ) : 
+                            new Date(value.lastMessageTime).toLocaleString( undefined , { hour:'2-digit', minute:'2-digit' } ) : 
                             new Date(value.lastMessageTime).toLocaleDateString()
                     } 
                 </div>
                 <div id='unRead'>{ value.unRead } </div>  
             </div>
+            { showDp && <ProfilePicture setShowDp={setShowDp} picture={value.picture} clickEvent={clickEvent} /> } 
         </Div>
     );
 }

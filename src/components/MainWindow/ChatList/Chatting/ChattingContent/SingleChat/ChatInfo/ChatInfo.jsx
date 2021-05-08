@@ -36,26 +36,32 @@ const ChatInfo = ({ showChatInfo, setShowChatInfo, value }) => {
     return (
         <Div showChatInfo={showChatInfo} onClick={ () => setShowChatInfo(false) } >
             <Box>
-                <div>
-                    <div> <BlueTick /> Read </div>
-                    <div> 
-                        {
-                            new Date(value.readedTime).toLocaleString( undefined, {
-                                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' 
-                            })
-                        } 
+                {
+                    value.readed && 
+                    value.readedTime &&
+                    <div> <div> <BlueTick /> Read </div>
+                        <div> 
+                            {
+                                new Date(value.readedTime).toLocaleString( undefined, {
+                                    year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' 
+                                })
+                            } 
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div> <DoubleTick /> Delivered </div>
-                    <div> 
-                        {
-                            new Date(value.deliveredTime).toLocaleString( undefined, {
-                                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
-                            })
-                        } 
+                }{
+                    value.delivered &&
+                    value.deliveredTime &&
+                    <div> <div> <DoubleTick /> Delivered </div>
+                        <div> 
+                            {
+                                new Date(value.deliveredTime).toLocaleString( undefined, {
+                                    year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
+                                })
+                            } 
+                        </div>
                     </div>
-                </div>
+
+                }
                 <div>
                     <div> <SingleTick /> Sent at </div>
                     <div> 

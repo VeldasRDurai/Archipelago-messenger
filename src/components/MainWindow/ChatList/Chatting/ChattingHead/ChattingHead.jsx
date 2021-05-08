@@ -39,11 +39,10 @@ const Div = styled.div`
                 #lastSeen {
                     position:absolute;
                     animation: scrollLastSeen 12s cubic-bezier(0, 1.07, 1, 0.4) both;
-                    animation-iteration-count: 2;
+                    animation-iteration-count: infinite ;
                     @keyframes scrollLastSeen {
                         0% {left:100%;}
-                        99%{left:-100%;}
-                        100%{ left:-35%; }
+                        100%{left:-100%;}
                     }
                 }
             }
@@ -105,8 +104,8 @@ const ChattingHead = () => {
                             {
                                 `last seen ${ datesAreOnSameDay(new Date(),new Date(lastSeen)) ? 'today':
                                     datesAreConsecutive(new Date(),new Date(lastSeen)) ? 'yesterday': 
-                                        new Date(lastSeen).toLocaleDateString(undefined,{ year: 'numeric', month: 'long', day: 'numeric'}) } at 
-                                        ${ new Date(lastSeen).toLocaleTimeString( [], {timeStyle: 'short'} ) }`
+                                        new Date(lastSeen).toLocaleString( undefined , { year: 'numeric', month: 'long', day: 'numeric'}) } at 
+                                        ${ new Date(lastSeen).toLocaleString( undefined , { hour:'2-digit', minute:'2-digit' } ) }`
                             }
                         </div>
                     }

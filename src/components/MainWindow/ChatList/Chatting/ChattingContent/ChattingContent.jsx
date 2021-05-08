@@ -36,11 +36,9 @@ const ChattingContent = () => {
                     <>
                         <SingleChat key={index} value={item} />
                         {
-                            index !== 0 &&
-                            ( index === oldChat.length - 1 ?
-                                <DateDiv date={item.messageTime} /> :
-                                !datesAreOnSameDay( new Date(item.messageTime) , new Date( oldChat[index-1].messageTime )) && 
-                                <DateDiv date={oldChat[index-1].messageTime} /> )
+                            index === oldChat.length - 1 ? <DateDiv date={item.messageTime} /> :
+                                !datesAreOnSameDay( new Date(item.messageTime) , new Date( oldChat[index+1].messageTime )) && 
+                                <DateDiv date={item.messageTime} />
                         }
                     </>
                 ) 
