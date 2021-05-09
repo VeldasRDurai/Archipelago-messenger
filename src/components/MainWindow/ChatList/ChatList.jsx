@@ -28,15 +28,31 @@ const ChatList = () => {
     const dispatch = useDispatch();
 
     const [ history , setHistory ] = useState([]);
-    
+    const notifyMe = ( data ) => {
+        if(Notification.permission==='granted'){
+            notify(data);
+        } else {
+            Notification.requestPermission( permission => {
+                if( permission === 'granted'){
+                    notify(data);
+                }
+            });
+        }
+    }
+    const notify = ({ notifyEmail, notifyName, notifyMessage }) => {
+        const notification = new Notification(`You have a message from ${notifyEmail}`, {
+            body:`${notifyName} : ${notifyMessage}`
+        });
+        notification.onclick = () => {
+            console.log('clicked notification');
+        }
+        setTimeout( notification.close.bind(notification), 3000 );
+    }
+
     useEffect( () =>
      {
         console.log('here');
-        const socket = io('https://archipelago-messenger-backend.herokuapp.com/', {
-            'reconnection': true,
-            'reconnectionDelay': 500,
-            'reconnectionAttempts': 10
-        });
+        const socket = io('https://archipelago-messenger-backend.herokuapp.com/');
         dispatch( updateSocket({socket}) );
         socket.on('connected' , () => {
             socket.emit('new-user', { email, name, _id } );
@@ -57,6 +73,7 @@ const ChatList = () => {
             console.log( history );
             setHistory( history );
         });
+        socket.on('push-notification', data => notifyMe(data) );
     } , [] );
 
     return (
