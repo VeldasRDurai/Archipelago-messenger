@@ -37,9 +37,9 @@ const Chatting = () => {
     return(
         <Div>
             <ChattingHead />
-            <div style={{height:'13%'}} ></div>
+            <div style={{height:'65px'}} ></div>
             <ChattingContent />
-            <div style={{height:'9%'}} ></div>
+            <div style={{height:'45px'}} ></div>
             <ChattingKeyboard />
         </Div>
     );

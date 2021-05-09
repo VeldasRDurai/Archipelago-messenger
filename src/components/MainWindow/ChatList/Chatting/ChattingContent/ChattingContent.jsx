@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import DateDiv from './DateDiv/DateDiv';
+import NotificationDiv from './NotificationDiv/NotificationDiv';
 import SingleChat from './SingleChat/SingleChat';
 
 const Div = styled.div`
     @media (max-width:425px) {
-        height:92%;
+        max-height:80%;
         overflow-x:hidden;
         overflow-y:scroll;
         word-wrap:break-word;
@@ -29,6 +30,7 @@ const ChattingContent = () => {
         first.getFullYear() === second.getFullYear() &&
         first.getMonth() === second.getMonth() &&
         first.getDate() === second.getDate();
+
     return(
         <Div ref={refChatDiv} >
             {
@@ -43,6 +45,7 @@ const ChattingContent = () => {
                     </>
                 ) 
             }
+            { oldChat.length >= 1000 && <NotificationDiv /> }
         </Div>
     );
 }

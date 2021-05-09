@@ -32,7 +32,11 @@ const ChatList = () => {
     useEffect( () =>
      {
         console.log('here');
-        const socket = io('https://archipelago-messenger-backend.herokuapp.com/');
+        const socket = io('https://archipelago-messenger-backend.herokuapp.com/', {
+            'reconnection': true,
+            'reconnectionDelay': 500,
+            'reconnectionAttempts': 10
+        });
         dispatch( updateSocket({socket}) );
         socket.on('connected' , () => {
             socket.emit('new-user', { email, name, _id } );

@@ -73,7 +73,7 @@ const SingleChat = ({ value }) => {
                 </div>
                 <div id='chat' > { message } </div>
                 <div id='time-delivered' >
-                    <div id='time' > { new Date(messageTime).toLocaleTimeString( [], {timeStyle: 'short'} ) } </div>
+                    <div id='time' > { new Date(messageTime).toLocaleTimeString( undefined , { hour: '2-digit', minute: '2-digit'} ) } </div>
                     <div id='delivered'>
                         {
                             sendBy === chattingWithEmail ? null :
