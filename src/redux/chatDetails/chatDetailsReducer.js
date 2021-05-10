@@ -30,7 +30,7 @@ const chatDetailsReducer = ( state = initialState , action ) => {
             };
         case APPEND_NEW_CHAT :
             return { ...state ,
-                oldChat :  [ ...state.oldChat ,  action.newChat ]
+                oldChat :  [ action.newChat, ...state.oldChat ]
             };
         case HE_IS_ONLINE :
             return { ...state ,
