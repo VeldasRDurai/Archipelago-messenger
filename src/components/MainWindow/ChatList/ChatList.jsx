@@ -49,34 +49,35 @@ const ChatList = () => {
     //     setTimeout( notification.close.bind(notification), 3000 );
     // }
 
-    const showNotification = ({ notifyEmail, notifyName, notifyMessage }) => {
-        console.log('inside show notification');
-        Notification.requestPermission( permission => {
-            if (permission === 'granted') {
-                console.log('granted');
-                navigator.serviceWorker.ready.
-                then( registration => registration.showNotification(`You have a message from ${notifyEmail}`, { 
-                    body:`${notifyName} : ${notifyMessage}` 
-                }) ).
-                catch(err => console.log(err) );
-            } else {
-                console.log('not granted')
-            }
-        });
-    }
+    // const showNotification = ({ notifyEmail, notifyName, notifyMessage }) => {
+    //     console.log('inside show notification');
+    //     Notification.requestPermission( permission => {
+    //         if (permission === 'granted') {
+    //             console.log('granted');
+    //             navigator.serviceWorker.ready.
+    //             then( registration => registration.showNotification(`You have a message from ${notifyEmail}`, { 
+    //                 body:`${notifyName} : ${notifyMessage}` 
+    //             }) ).
+    //             catch(err => console.log(err) );
+    //         } else {
+    //             console.log('not granted')
+    //         }
+    //     });
+    // }
 
     useEffect( () =>
     {
         const socket = io('https://archipelago-messenger-backend.herokuapp.com/');
         dispatch( updateSocket({socket}) );
         socket.on('connected' , async () => {
-            const sw = await navigator.serviceWorker.ready ;
-            const subscription = await sw.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: 'BPTusE7P8UdeFusBo-HAkYSKag0S5cNa1xjGfwmho0mlmSx_ZFj0aoHGKouP0ONYWxAK8cfeYhe5wsQucSPbO9U'
-            });
-            console.log( JSON.stringify(subscription) )
-            socket.emit('new-user', { email, name, _id, subscription:JSON.stringify(subscription) } );
+            // const sw = await navigator.serviceWorker.ready ;
+            // const subscription = await sw.pushManager.subscribe({
+            //     userVisibleOnly: true,
+            //     applicationServerKey: 'BPTusE7P8UdeFusBo-HAkYSKag0S5cNa1xjGfwmho0mlmSx_ZFj0aoHGKouP0ONYWxAK8cfeYhe5wsQucSPbO9U'
+            // });
+            // console.log( JSON.stringify(subscription) )
+            // socket.emit('new-user', { email, name, _id, subscription:JSON.stringify(subscription) } );
+            socket.emit('new-user', { email, name, _id } );
         });
         socket.on('search-result' , data => dispatch( updateSearchResultAction({ searchResult:data }) ));
         socket.on('previous-message' , data => {
@@ -94,7 +95,7 @@ const ChatList = () => {
             console.log( history );
             setHistory( history );
         });
-        socket.on('push-notification', data => showNotification(data) );
+        // socket.on('push-notification', data => showNotification(data) );
     } , [] );
 
     return (
