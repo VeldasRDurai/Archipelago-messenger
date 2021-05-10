@@ -67,7 +67,7 @@ const ChatList = () => {
 
     useEffect( () =>
     {
-        const socket = io('http://localhost:4000/');
+        const socket = io('https://archipelago-messenger-backend.herokuapp.com/');
         dispatch( updateSocket({socket}) );
         socket.on('connected' , async () => {
             const sw = await navigator.serviceWorker.ready ;

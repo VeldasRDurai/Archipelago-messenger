@@ -37,7 +37,7 @@ const ProfileHeader = ({ setShowProfile }) => {
             </svg>
             <div id="profile"> Profile </div>
             <svg id='download' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" 
-                onClick={ () => window.open(`http://localhost:4000/download-history/${chattingWithName}/${name}/${chattingWithId}/${_id}`, '_blank')  } >
+                onClick={ () => window.open(`https://archipelago-messenger-backend.herokuapp.com/download-history/${chattingWithName}/${name}/${chattingWithId}/${_id}`, '_blank')  } >
                 <path xmlns="http://www.w3.org/2000/svg" 
                     fill="currentColor" 
                     d="M4 4v2.01C5.83 3.58 8.73 2 12.01 2 17.53 2 22 6.48 22 12s-4.47 10-9.99 10C6.48 22 2 17.52 2 12h2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8C9.04 4 6.47 5.61 5.09 8H8v2H2V4h2zm9 8V6h-2v7l4.97 3.49 1.26-1.55L13 12z" 
