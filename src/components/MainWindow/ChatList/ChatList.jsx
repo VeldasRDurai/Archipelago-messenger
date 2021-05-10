@@ -10,7 +10,7 @@ import Chatting from './Chatting/Chatting';
 import TapHere from './TapHere/TapHere';
 
 import { newAboutAction } from '../../../redux/userDetails/userDetailsActions';
-import { updateOldChatAction, heIsOnlineAction, heIsOfflineAction, toggleTypingAction } from '../../../redux/chatDetails/chatDetailsActions';
+import { endChatAction, updateOldChatAction, heIsOnlineAction, heIsOfflineAction, toggleTypingAction } from '../../../redux/chatDetails/chatDetailsActions';
 import { updateSearchResultAction } from '../../../redux/search/searchActions'
 import { updateSocket }  from '../../../redux/socket/socketActions';
 
@@ -96,6 +96,17 @@ const ChatList = () => {
             setHistory( history );
         });
         // socket.on('push-notification', data => showNotification(data) );
+
+        document.addEventListener("visibilitychange", () => {
+            if( document.hidden ){
+                console.log('offline');
+                dispatch( endChatAction() );
+                socket.emit('offline');
+            } else{
+                console.log('online');
+                socket.emit('online',{ email, name, _id });
+            } 
+        }, false);
     } , [] );
 
     return (
@@ -107,10 +118,8 @@ const ChatList = () => {
                 })
             } 
             <SearchTab />
-            {
-                isChatting && <Chatting />
-            }
             <TapHere />
+            { isChatting && <Chatting /> }
         </Div>
     );
 
