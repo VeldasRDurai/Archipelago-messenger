@@ -54,7 +54,7 @@ const Options = ({ setShowOptions }) => {
 
     const logOut = async () => {
         try{
-            const data = await fetch( "https://archipelago-messenger-backend.herokuapp.com/log-out" , { credentials: 'include' });
+            const data = await fetch( "http://localhost:4000/log-out" , { credentials: 'include' });
             if( data.status === 200 ) {
                 dispatch( logedOutAction() );
                 socket.disconnect();
