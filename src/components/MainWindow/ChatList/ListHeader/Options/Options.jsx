@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 
+import serviceWorkerUnsubscribe from '../../../../../serviceWorkerUnsubscribe';
+
 import { logedOutAction } from '../../../../../redux/userDetails/userDetailsActions';
 import { updateSocket } from '../../../../../redux/socket/socketActions';
 
@@ -54,6 +56,7 @@ const Options = ({ setShowOptions }) => {
 
     const logOut = async () => {
         try{
+            serviceWorkerUnsubscribe();
             const data = await fetch( "https://archipelago-messenger-backend.herokuapp.com/log-out" , { credentials: 'include' });
             if( data.status === 200 ) {
                 dispatch( logedOutAction() );

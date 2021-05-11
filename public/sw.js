@@ -1,31 +1,30 @@
-console.log("ws file is in public folder");
-this.addEventListener( 'push' , () => {
-    self.registration.sendNotification('test Message', {});
+let notificationUrl = '';
+//notification registered feature for getting update automatically from server api
+self.addEventListener('push', function (event) {
+    console.log('Push received: ', event);
+    let _data = event.data ? JSON.parse(event.data.text()) : {};
+    notificationUrl = _data.url;
+    event.waitUntil(
+        self.registration.showNotification(_data.title, {
+            body: _data.message,
+            icon: _data.icon,
+            tag: _data.tag
+        })
+    );
 });
 
-// const cacheData = 'appV1';
+//notification url redirect event click
+self.addEventListener('notificationclick', function (event) {
+    event.notification.close();
 
-// this.addEventListener( 'install' , event => {
-//     event.waitUntil( 
-//         caches.open(cacheData).then( cache => {
-//             cache.addAll([
-//                 '/static/js/vendors~main.chunk.js',
-//                 '/static/js/main.chunk.js',
-//                 '/static/js/bundle.js',
-//                 '/index.html',
-//                 '/'
-//             ])
-//         })
-//     )
-// });
-// this.addEventListener( 'fetch', event => {
-//     if(!navigator.onLine){
-//         event.respondWith(
-//             caches.match(event.request).then( resp => {
-//                 if(resp){
-//                     return resp;
-//                 }
-//             })
-//         );
-//     }
-// });
+    event.waitUntil(
+        clients.matchAll({
+            type: "window"
+        })
+        .then(function (clientList) {
+            if (clients.openWindow) {
+                return clients.openWindow(notificationUrl);
+            }
+        })
+    );
+});

@@ -37,7 +37,7 @@ const Div = styled.div`
 `;
 
 const ChattingKeyboard = () => {
-    const { email, name, _id } = useSelector( state => state.userDetails );
+    const { email, name, _id, picture } = useSelector( state => state.userDetails );
     const { chattingWithEmail, chattingWithName, chattingWithId } = useSelector( state => state.chatDetails );
     const { socket } = useSelector( state => state.socket );
     const dispatch = useDispatch();
@@ -58,7 +58,7 @@ const ChattingKeyboard = () => {
     }, [ message ])
 
     const sendMsg = () => {
-        socket.emit( 'send-message' , { email, name, _id, chattingWithEmail, chattingWithName, chattingWithId, message } );
+        socket.emit( 'send-message' , { email, name, _id, picture, chattingWithEmail, chattingWithName, chattingWithId, message } );
         dispatch( appendNewChatAction({ newChat: { sendBy:email , message:message , messageTime: new Date() } }) );
         refInput.current.value = '';
         setMessage('');
