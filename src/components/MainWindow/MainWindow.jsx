@@ -17,7 +17,7 @@ const MainWindow = () => {
     useEffect( () => { 
         const dataFetcher = async () => {
             try {
-                const res = await fetch( "https://archipelago-messenger.herokuapp.com" , { credentials: 'include' });
+                const res = await fetch( "https://archipelago-messenger-backend.herokuapp.com" , { credentials: 'include' });
                 if( res.status === 200 ){
                     let details = await res.json();
                     const { email, name, _id, picture, about } = details;

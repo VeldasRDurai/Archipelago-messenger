@@ -17,7 +17,7 @@ function urlB64ToUint8Array(base64String) {
 // Send request to database for add new subscriber
 const saveSubscription = async (subscription) => {
     try {
-        const response = await fetch("https://archipelago-messenger.herokuapp.comsubscribe", {
+        const response = await fetch("https://archipelago-messenger-backend.herokuapp.com/subscribe", {
             credentials: 'include',
             method: 'POST', 
             headers: { 'Content-Type': 'application/json'},
