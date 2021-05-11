@@ -33,7 +33,7 @@ const ChatList = () => {
 
     useEffect( () =>
     {
-        const socket = io('https://archipelago-messenger-backend.herokuapp.com/');
+        const socket = io('https://archipelago-messenger.herokuapp.com');
         dispatch( updateSocket({socket}) );
         socket.on('connected' , async () => {
             serviceWorkerDev();

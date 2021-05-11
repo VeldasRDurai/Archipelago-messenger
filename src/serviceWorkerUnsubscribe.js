@@ -1,6 +1,6 @@
 // const deleteSubscription = async (subscription) => {
 //     try {
-//         const response = await fetch("https://archipelago-messenger-backend.herokuapp.com/unsubscribe", {
+//         const response = await fetch("https://archipelago-messenger.herokuapp.comunsubscribe", {
 //             credentials: 'include',
 //             method: 'POST', 
 //             headers: { 'Content-Type': 'application/json'},
