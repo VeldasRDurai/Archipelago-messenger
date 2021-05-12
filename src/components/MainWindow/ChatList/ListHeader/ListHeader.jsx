@@ -6,7 +6,7 @@ import Options from './Options/Options';
 const Div = styled.div`
     @media (max-width:425px) {
         box-sizing:border-box;
-        height:80px;
+        height:15%;
         width:100%;
         padding:0 5% 0 10%;
         font-size:18px;

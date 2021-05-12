@@ -27,6 +27,13 @@ const Div = styled.div`
         align-items:center;
     }
 `;
+const ListContainer = styled.div`
+    @media (max-width:425px) {
+        max-height:85%;
+        width:100%;
+        overflow:scroll;
+    }
+`;
 
 const ChatList = () => { 
     const { email, name, _id } = useSelector( state => state.userDetails );
@@ -80,7 +87,11 @@ const ChatList = () => {
             { 
                 loadingHistory ? 
                 <Loading side={80} /> : 
-                history.map( (item,index) => <ListItem key={index} value={item} /> ) 
+                <ListContainer>
+                    {
+                        history.map( (item,index) => <ListItem key={index} value={item} /> ) 
+                    }
+                </ListContainer>
             } 
             <SearchTab />
             <TapHere />
