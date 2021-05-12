@@ -9,6 +9,7 @@ const initialState = {
     chattingWithAbout : '',
     isTyping : false ,
     oldChat : [] ,
+    newChat : [] ,
     online : undefined ,
     lastSeen : undefined
 }
@@ -26,11 +27,12 @@ const chatDetailsReducer = ( state = initialState , action ) => {
             };
         case UPDATE_OLD_CHAT :
             return { ...state ,
-                oldChat : action.oldChat
+                oldChat : action.oldChat,
+                newChat : []
             };
         case APPEND_NEW_CHAT :
             return { ...state ,
-                oldChat :  [ action.newChat, ...state.oldChat ]
+                newChat :  [ action.newChat, ...state.newChat ]
             };
         case HE_IS_ONLINE :
             return { ...state ,

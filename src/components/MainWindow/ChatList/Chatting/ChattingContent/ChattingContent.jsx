@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import DateDiv from './DateDiv/DateDiv';
 import NotificationDiv from './NotificationDiv/NotificationDiv';
 import SingleChat from './SingleChat/SingleChat';
+import NotSend from './NotSend/NotSend';
 
 const Div = styled.div`
     @media (max-width:425px) {
@@ -21,7 +22,7 @@ const Div = styled.div`
 `;
 
 const ChattingContent = () => {
-    const { oldChat } = useSelector( state => state.chatDetails );
+    const { oldChat, newChat } = useSelector( state => state.chatDetails );
     const refChatDiv = useRef();
     useEffect( () => {
         refChatDiv.current.scrollTop = refChatDiv.current.scrollHeight;
@@ -33,6 +34,7 @@ const ChattingContent = () => {
 
     return(
         <Div ref={refChatDiv} >
+            { newChat.map( ( item, index ) => <NotSend key={index} value={item} /> ) }
             {
                 oldChat.map( (item,index) =>  
                     <>
