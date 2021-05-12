@@ -36,7 +36,7 @@ const MainWindow = () => {
     return(
         <>
             {
-                loading ? <Loading  /> : 
+                loading ? <Loading side={80} /> : 
                 isloged ? <ChatList /> : 
                     <div> error  </div>
             }

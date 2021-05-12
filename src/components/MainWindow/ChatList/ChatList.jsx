@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import serviceWorkerDev from '../../../serviceWorkerDev';
 
+import Loading from '../../Loading/Loading';
 import ListHeader from './ListHeader/ListHeader';
 import ListItem from './ListItem/ListItem';
 import SearchTab from './SearchTab/SearchTab';
@@ -21,6 +22,9 @@ const Div = styled.div`
         height:100%;
         width:100%;
         position:relative;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
     }
 `;
 
@@ -30,6 +34,7 @@ const ChatList = () => {
     const dispatch = useDispatch();
 
     const [ history , setHistory ] = useState([]);
+    const [ loadingHistory, setLoadingHistory  ] = useState(true);
 
     useEffect( () =>
     {
@@ -53,9 +58,9 @@ const ChatList = () => {
         socket.on('updated-about', ({ newAbout }) => dispatch( newAboutAction({ newAbout }) ));
         socket.on('set-history' , ({ history }) => {
             console.log( history );
-            setHistory( history );
+            setLoadingHistory(false);
+            setHistory( history.sort( (a,b) =>  new Date(a.lastMessageTime) > new Date(b.lastMessageTime) ? 1 : -1 ) );
         });
-        // socket.on('push-notification', data => showNotification(data) );
 
         document.addEventListener("visibilitychange", () => {
             if( document.hidden ){
@@ -72,7 +77,11 @@ const ChatList = () => {
     return (
         <Div>
             <ListHeader />
-            { history.map( (item,index) => <ListItem key={index} value={item} /> ) } 
+            { 
+                loadingHistory ? 
+                <Loading side={80} /> : 
+                history.map( (item,index) => <ListItem key={index} value={item} /> ) 
+            } 
             <SearchTab />
             <TapHere />
             { isChatting && <Chatting /> }
