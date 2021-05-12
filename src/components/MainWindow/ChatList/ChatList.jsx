@@ -59,7 +59,7 @@ const ChatList = () => {
         socket.on('set-history' , ({ history }) => {
             console.log( history );
             setLoadingHistory(false);
-            setHistory( history.sort( (a,b) =>  new Date(a.lastMessageTime) > new Date(b.lastMessageTime) ? 1 : -1 ) );
+            setHistory( history.sort( (a,b) =>  new Date(a.lastMessageTime) > new Date(b.lastMessageTime) ? -1 : 1 ) );
         });
 
         document.addEventListener("visibilitychange", () => {
