@@ -1,0 +1,17 @@
+{
+    "short_name": "Archipelago",
+    "name": "Archipelago Messenger Application",
+    "icons": [
+      {
+        "src": "/icon.png",
+        "type": "image/jpg",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#3f3d56",
+    "display": "fullscreen",
+    "scope": "/",
+    "theme_color": "#05a88d",
+    "description": "A real-time community messenger web application that makes use of a Gmail account as users."
+}
